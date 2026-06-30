@@ -157,19 +157,8 @@ export default function Header() {
           </nav>
 
           {/* CENTER — Logo (absolutely centered) */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center select-none">
-            <span
-              className="font-serif leading-none text-black"
-              style={{ fontSize: "28px", letterSpacing: "0.35em" }}
-            >
-              ELARA
-            </span>
-            <span
-              className="text-[9px] text-gray-500 mt-0.5 font-light"
-              style={{ letterSpacing: "0.5em" }}
-            >
-              FASHION
-            </span>
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex items-center select-none">
+            <img src="/logo.svg" alt="Logo" height={41} style={{ height: "41px", width: "auto" }} />
           </Link>
 
           {/* RIGHT — Search + Icons */}
