@@ -249,8 +249,8 @@ export default function Header() {
             {/* Account */}
             {user ? (
               <div className="relative group">
-                <button className="p-1.5 text-gray-600 hover:text-black transition-colors" data-testid="button-account">
-                  <User size={18} strokeWidth={1.8} />
+                <button className="p-1.5 hover:opacity-70 transition-opacity" data-testid="button-account">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="10" r="5" stroke="#262433" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/><path d="M4.51562 19C6.13015 16.588 8.87966 15 12.0001 15C15.1539 15 17.9288 16.6222 19.5359 19.0777" stroke="#262433" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10.4" stroke="#262433" strokeWidth="1.2" strokeLinecap="round"/></svg>
                 </button>
                 <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-gray-200 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
                   <Link href="/account" className="block px-4 py-2.5 text-xs tracking-wide text-gray-700 hover:bg-gray-50 transition-colors uppercase">My Account</Link>
@@ -261,19 +261,19 @@ export default function Header() {
                 </div>
               </div>
             ) : (
-              <Link href="/login" className="p-1.5 text-gray-600 hover:text-black transition-colors" data-testid="link-login">
-                <User size={18} strokeWidth={1.8} />
+              <Link href="/login" className="p-1.5 hover:opacity-70 transition-opacity" data-testid="link-login">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="10" r="5" stroke="#262433" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/><path d="M4.51562 19C6.13015 16.588 8.87966 15 12.0001 15C15.1539 15 17.9288 16.6222 19.5359 19.0777" stroke="#262433" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="10.4" stroke="#262433" strokeWidth="1.2" strokeLinecap="round"/></svg>
               </Link>
             )}
 
             {/* Wishlist */}
-            <Link href="/account" className="p-1.5 text-gray-600 hover:text-black transition-colors" data-testid="link-wishlist">
-              <Heart size={18} strokeWidth={1.8} />
+            <Link href="/account" className="p-1.5 hover:opacity-70 transition-opacity" data-testid="link-wishlist">
+              <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.9381 1.06392C13.0745 1.53293 10.9864 4.79519 10.9864 6.84843C10.9864 4.79519 9.29609 1.59547 6.01486 1.06392C3.30038 0.626169 0.625677 2.83575 1.04329 6.29604C1.76914 12.289 8.9978 15.8327 10.9864 17C12.9751 15.8327 19.9949 12.1535 20.9296 6.29604C21.4466 3.06505 19.0503 0.563634 15.9381 1.06392Z" stroke="#262433" strokeWidth="1.2"/></svg>
             </Link>
 
             {/* Cart */}
-            <Link href="/cart" className="relative p-1.5 text-gray-600 hover:text-black transition-colors" data-testid="link-cart">
-              <ShoppingBag size={18} strokeWidth={1.8} />
+            <Link href="/cart" className="relative p-1.5 hover:opacity-70 transition-opacity" data-testid="link-cart">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.3551 7.05859H0.890625L2.37753 17.1168C2.68098 19.1814 4.38028 20.706 6.37292 20.706H15.6281C17.6207 20.706 19.3201 19.1814 19.6235 17.1168L21.1104 7.05859H19.3551Z" stroke="black" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/><path d="M6 11.5V7.14183C6 4.52937 7.60494 2.12444 9.9618 1.61172C13.1717 0.915877 16 3.56496 16 6.9343V11.5" stroke="black" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/></svg>
               {cartCount > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#b8860b] text-white text-[10px] rounded-full flex items-center justify-center font-semibold" data-testid="text-cart-count">
                   {cartCount}
