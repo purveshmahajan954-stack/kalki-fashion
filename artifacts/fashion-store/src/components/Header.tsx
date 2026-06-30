@@ -1,8 +1,45 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Heart, User, Search, Menu, X, MapPin, ChevronDown } from "lucide-react";
+import { ShoppingBag, Heart, User, Search, Menu, X, MapPin, Video, Shirt, Truck, RotateCcw } from "lucide-react";
 import { useGetCart, useListCategories, useSearchProducts } from "@workspace/api-client-react";
 import { useAuth } from "@/contexts/AuthContext";
+
+const announcements = [
+  { icon: Video, text: "Seamless Video Shopping Experience" },
+  { icon: Shirt, text: "Designer Quality Styles" },
+  { icon: Truck, text: "Free Shipping within India" },
+  { icon: RotateCcw, text: "Easy Returns*" },
+];
+
+function AnnouncementBar() {
+  const [current, setCurrent] = useState(0);
+  const [animating, setAnimating] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setAnimating(true);
+      setTimeout(() => {
+        setCurrent((c) => (c + 1) % announcements.length);
+        setAnimating(false);
+      }, 300);
+    }, 3000);
+    return () => clearInterval(id);
+  }, []);
+
+  const { icon: Icon, text } = announcements[current];
+
+  return (
+    <div className="bg-black text-white text-center text-xs py-2 tracking-widest font-light overflow-hidden">
+      <div
+        className="flex items-center justify-center gap-2 transition-all duration-300"
+        style={{ opacity: animating ? 0 : 1, transform: animating ? "translateY(-6px)" : "translateY(0)" }}
+      >
+        <Icon size={13} strokeWidth={1.8} />
+        <span>{text}</span>
+      </div>
+    </div>
+  );
+}
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -37,11 +74,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white">
-      {/* Announcement bar */}
-      <div className="bg-black text-white text-center text-xs py-2 tracking-widest font-light flex items-center justify-center gap-2">
-        <span>👥</span>
-        <span>Styled more than 100,000 Clients</span>
-      </div>
+      <AnnouncementBar />
 
       {/* Main header */}
       <div className="border-b border-gray-200">
