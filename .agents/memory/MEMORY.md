@@ -1,0 +1,1 @@
+- [Elara Fashion Store](elara-fashion-store.md) — full-stack Indian ethnic fashion e-commerce; key gotchas on auth, images, and Zod imports
