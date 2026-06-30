@@ -102,12 +102,12 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center justify-between gap-2 flex-wrap">
             {[
-              { file: "icon1.svg?v=1755609266",   label: "24 Hour Dispatch" },
-              { file: "Easy_Returns.svg",          label: "Easy Returns" },
-              { file: "Shipping_Box.svg",          label: "Free Shipping* Over ₹3000" },
-              { file: "icon_5.svg?v=1755609266",   label: "KALKI Express" },
-              { file: "Stiching.svg",              label: "Custom Fitting" },
-              { file: "cloth-icon.svg",            label: "New Styles Daily" },
+              { file: "icon1.svg?v=1755609266",        label: "24 Hour Dispatch" },
+              { file: "Easy_Returns.svg",             label: "Easy Returns" },
+              { file: "Shipping_Box.svg",             label: "Free Shipping* Over ₹3000" },
+              { file: "Stiching.svg?v=1755608731",    label: "KALKI Express" },
+              { file: "Customize.svg",                label: "Custom Fitting" },
+              { file: "cloth-icon.svg",               label: "New Styles Daily" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-1.5 flex-1 min-w-[80px]">
                 <img
