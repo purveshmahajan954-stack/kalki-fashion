@@ -91,8 +91,16 @@ export default function Header() {
                 <Link
                   key={link.label}
                   href={href}
-                  className="text-[13px] font-semibold tracking-[0.1em] transition-colors whitespace-nowrap"
+                  className="text-[13px] font-semibold tracking-[0.1em] whitespace-nowrap px-2 py-1 transition-all hover:bg-black hover:text-white"
                   style={{ color: link.gold ? "#b8860b" : "#222" }}
+                  onMouseEnter={(e) => {
+                    if (!link.gold) {
+                      (e.currentTarget as HTMLElement).style.color = "#fff";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = link.gold ? "#b8860b" : "#222";
+                  }}
                 >
                   {link.label}
                 </Link>
