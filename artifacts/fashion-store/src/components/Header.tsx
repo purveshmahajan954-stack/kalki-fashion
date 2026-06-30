@@ -64,11 +64,15 @@ function FlagImg({ code, width = 23, height = 17 }: { code: string; width?: numb
   );
 }
 
+const SEARCH_WORDS = ["Saree", "Suits", "Gown", "Anarkali", "Lehengas"];
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [countryOpen, setCountryOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
+  const [searchWordIdx, setSearchWordIdx] = useState(0);
+  const [searchWordVisible, setSearchWordVisible] = useState(true);
   const [location, setLocation] = useLocation();
   const searchRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLDivElement>(null);
@@ -82,6 +86,17 @@ export default function Header() {
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSearchWordVisible(false);
+      setTimeout(() => {
+        setSearchWordIdx((i) => (i + 1) % SEARCH_WORDS.length);
+        setSearchWordVisible(true);
+      }, 300);
+    }, 2000);
+    return () => clearInterval(id);
   }, []);
 
   const { data: cart } = useGetCart();
@@ -165,21 +180,33 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-3 flex-shrink-0">
             {/* Search box */}
             <form onSubmit={handleSearch} className="relative flex items-center border border-gray-300 h-9">
-              <input
-                ref={searchRef}
-                type="search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for Anarkali"
-                className="pl-3 pr-1 text-[13px] text-gray-700 placeholder:text-gray-400 outline-none bg-transparent w-44"
-                data-testid="input-search"
-              />
+              <div className="relative flex items-center flex-1">
+                <input
+                  ref={searchRef}
+                  type="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-3 pr-1 text-[13px] text-gray-700 outline-none bg-transparent w-44 h-9 placeholder:text-transparent"
+                  data-testid="input-search"
+                />
+                {!searchQuery && (
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-[13px] text-gray-400 whitespace-nowrap flex items-center gap-1">
+                    Search for&nbsp;
+                    <span
+                      className="transition-all duration-300 inline-block"
+                      style={{ opacity: searchWordVisible ? 1 : 0, transform: searchWordVisible ? "translateY(0)" : "translateY(-4px)" }}
+                    >
+                      {SEARCH_WORDS[searchWordIdx]}
+                    </span>
+                  </span>
+                )}
+              </div>
               <button
                 type="submit"
-                className="w-9 h-9 flex items-center justify-center bg-black text-white flex-shrink-0"
+                className="w-9 h-9 flex items-center justify-center bg-black flex-shrink-0"
                 data-testid="button-search-toggle"
               >
-                <Search size={15} strokeWidth={2} />
+                <svg width="16" height="17" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M8.33313 0.5C6.99297 0.500034 5.67259 0.823285 4.48397 1.44234C3.29536 2.06139 2.27358 2.95797 1.5053 4.05605C0.737026 5.15413 0.244913 6.4213 0.0707069 7.75009C-0.1035 9.07887 0.0453389 10.4301 0.504598 11.6891C0.963857 12.9481 1.71999 14.0778 2.70886 14.9823C3.69773 15.8868 4.89016 16.5395 6.18502 16.885C7.47988 17.2305 8.83897 17.2586 10.147 16.9669C11.455 16.6752 12.6734 16.0724 13.6988 15.2095L17.8569 19.3667L18.8665 18.3571L14.7093 14.199C15.7314 12.9846 16.3853 11.5034 16.5942 9.9299C16.803 8.35637 16.5582 6.75593 15.8884 5.31685C15.2185 3.87777 14.1517 2.65993 12.8132 1.80661C11.4748 0.953279 9.92045 0.499966 8.33313 0.5ZM1.42836 8.83333C1.42836 7.92659 1.60696 7.02872 1.95396 6.191C2.30095 5.35327 2.80956 4.5921 3.45072 3.95093C4.09189 3.30976 4.85306 2.80116 5.69079 2.45416C6.52851 2.10717 7.42638 1.92857 8.33313 1.92857C9.23987 1.92857 10.1377 2.10717 10.9755 2.45416C11.8132 2.80116 12.5744 3.30976 13.2155 3.95093C13.8567 4.5921 14.3653 5.35327 14.7123 6.191C15.0593 7.02872 15.2379 7.92659 15.2379 8.83333C15.2379 10.6646 14.5104 12.4208 13.2155 13.7157C11.9206 15.0106 10.1644 15.7381 8.33313 15.7381C6.50187 15.7381 4.74562 15.0106 3.45072 13.7157C2.15583 12.4208 1.42836 10.6646 1.42836 8.83333Z" fill="white"/></svg>
               </button>
 
               {/* Dropdown suggestions */}
