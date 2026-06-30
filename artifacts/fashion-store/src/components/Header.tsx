@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Heart, User, Search, Menu, X, ChevronDown } from "lucide-react";
+import { ShoppingBag, Heart, User, Search, Menu, X, MapPin, ChevronDown } from "lucide-react";
 import { useGetCart, useListCategories, useSearchProducts } from "@workspace/api-client-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [, setLocation] = useLocation();
   const searchRef = useRef<HTMLInputElement>(null);
@@ -21,167 +20,241 @@ export default function Header() {
 
   const cartCount = cart?.items?.reduce((s, i) => s + i.quantity, 0) ?? 0;
 
-  useEffect(() => {
-    if (searchOpen) searchRef.current?.focus();
-  }, [searchOpen]);
-
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     if (searchQuery.trim()) {
       setLocation(`/search?q=${encodeURIComponent(searchQuery)}`);
-      setSearchOpen(false);
       setSearchQuery("");
     }
   }
 
+  const navLinks = [
+    { label: "WOMEN", slug: "women" },
+    { label: "MEN", slug: "men" },
+    { label: "BRIDAL", slug: "bridal" },
+    { label: "LUXE", slug: "luxe", gold: true },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-border" style={{ backdropFilter: "blur(8px)" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
-            <span className="font-serif text-2xl tracking-widest text-foreground" style={{ letterSpacing: "0.15em" }}>
+    <header className="sticky top-0 z-50 bg-white">
+      {/* Announcement bar */}
+      <div className="bg-black text-white text-center text-xs py-2 tracking-widest font-light flex items-center justify-center gap-2">
+        <span>👥</span>
+        <span>Styled more than 100,000 Clients</span>
+      </div>
+
+      {/* Main header */}
+      <div className="border-b border-gray-200">
+        <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between h-[72px] gap-4">
+
+          {/* LEFT — Nav links */}
+          <nav className="hidden md:flex items-center gap-7 flex-shrink-0">
+            {navLinks.map((link) => {
+              const cat = categories?.find(
+                (c) => c.slug === link.slug || c.name.toUpperCase() === link.label
+              );
+              const href = cat ? `/category/${cat.slug}` : `/category/${link.slug}`;
+              return (
+                <Link
+                  key={link.label}
+                  href={href}
+                  className="text-[13px] font-semibold tracking-[0.1em] transition-colors whitespace-nowrap"
+                  style={{ color: link.gold ? "#b8860b" : "#222" }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <Link
+              href="/stores"
+              className="flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.08em] text-gray-700 hover:text-black transition-colors whitespace-nowrap"
+            >
+              <MapPin size={15} strokeWidth={1.8} />
+              Find Store
+            </Link>
+          </nav>
+
+          {/* CENTER — Logo */}
+          <Link href="/" className="flex flex-col items-center flex-shrink-0 select-none">
+            <span
+              className="font-serif leading-none tracking-[0.35em] text-black"
+              style={{ fontSize: "28px", letterSpacing: "0.35em" }}
+            >
               ELARA
+            </span>
+            <span
+              className="text-[9px] tracking-[0.55em] text-gray-500 mt-0.5 font-light"
+              style={{ letterSpacing: "0.5em" }}
+            >
+              FASHION
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {categories?.slice(0, 6).map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/category/${cat.slug}`}
-                className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors uppercase"
-                style={{ letterSpacing: "0.08em" }}
-              >
-                {cat.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Right Icons */}
-          <div className="flex items-center gap-4">
-            {/* Search */}
-            <button
-              onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="button-search-toggle"
-            >
-              <Search size={18} />
-            </button>
-
-            {/* Wishlist */}
-            <Link href="/account" className="p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" data-testid="link-wishlist">
-              <Heart size={18} />
-            </Link>
-
-            {/* Cart */}
-            <Link href="/cart" className="relative p-2 text-muted-foreground hover:text-foreground transition-colors" data-testid="link-cart">
-              <ShoppingBag size={18} />
-              {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary text-primary-foreground text-xs rounded-full flex items-center justify-center font-medium" data-testid="text-cart-count">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-
-            {/* Account */}
-            {user ? (
-              <div className="relative group hidden sm:block">
-                <button className="p-2 text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1" data-testid="button-account">
-                  <User size={18} />
-                </button>
-                <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-border shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                  <Link href="/account" className="block px-4 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors">My Account</Link>
-                  {user.role === "admin" && (
-                    <Link href="/admin" className="block px-4 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors">Admin Dashboard</Link>
-                  )}
-                  <button onClick={logout} className="w-full text-left px-4 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors border-t border-border">Sign Out</button>
-                </div>
-              </div>
-            ) : (
-              <Link href="/login" className="p-2 text-muted-foreground hover:text-foreground transition-colors hidden sm:block" data-testid="link-login">
-                <User size={18} />
-              </Link>
-            )}
-
-            {/* Mobile menu */}
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 text-muted-foreground" data-testid="button-mobile-menu">
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Search Bar */}
-        {searchOpen && (
-          <div className="border-t border-border py-3 relative" data-testid="search-bar">
-            <form onSubmit={handleSearch} className="flex items-center gap-3">
-              <Search size={16} className="text-muted-foreground flex-shrink-0" />
+          {/* RIGHT — Search + Icons */}
+          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+            {/* Search box */}
+            <form onSubmit={handleSearch} className="relative flex items-center border border-gray-300 h-9">
               <input
                 ref={searchRef}
                 type="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for sarees, lehengas, kurtas..."
-                className="flex-1 bg-transparent outline-none text-sm text-foreground placeholder:text-muted-foreground"
+                placeholder="Search for Anarkali"
+                className="pl-3 pr-1 text-[13px] text-gray-700 placeholder:text-gray-400 outline-none bg-transparent w-44"
                 data-testid="input-search"
               />
-              <button type="submit" className="text-sm text-primary hover:underline">Search</button>
-            </form>
-            {searchResults && searchResults.length > 0 && searchQuery.length > 1 && (
-              <div className="absolute left-0 right-0 top-full bg-white border border-border shadow-lg z-50" data-testid="search-suggestions">
-                {searchResults.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/product/${p.slug}`}
-                    onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-secondary transition-colors"
-                  >
-                    <img src={p.images[0]} alt={p.name} className="w-10 h-12 object-cover" />
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{p.name}</p>
-                      <p className="text-xs text-muted-foreground">{p.category}</p>
-                    </div>
-                    <span className="ml-auto text-sm font-medium text-primary">₹{p.discountPrice?.toLocaleString("en-IN") ?? p.price.toLocaleString("en-IN")}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+              <button
+                type="submit"
+                className="w-9 h-9 flex items-center justify-center bg-black text-white flex-shrink-0"
+                data-testid="button-search-toggle"
+              >
+                <Search size={15} strokeWidth={2} />
+              </button>
 
-        {/* Mobile Nav */}
-        {mobileOpen && (
-          <div className="md:hidden border-t border-border py-4" data-testid="mobile-nav">
-            <nav className="flex flex-col gap-3">
-              {categories?.map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={`/category/${cat.slug}`}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-sm tracking-wider text-foreground py-1 uppercase"
-                >
-                  {cat.name}
-                </Link>
-              ))}
-              <div className="border-t border-border pt-3 mt-1 flex flex-col gap-2">
-                {user ? (
-                  <>
-                    <Link href="/account" onClick={() => setMobileOpen(false)} className="text-sm text-foreground py-1">My Account</Link>
-                    {user.role === "admin" && <Link href="/admin" onClick={() => setMobileOpen(false)} className="text-sm text-foreground py-1">Admin</Link>}
-                    <button onClick={() => { logout(); setMobileOpen(false); }} className="text-left text-sm text-foreground py-1">Sign Out</button>
-                  </>
-                ) : (
-                  <>
-                    <Link href="/login" onClick={() => setMobileOpen(false)} className="text-sm text-foreground py-1">Sign In</Link>
-                    <Link href="/register" onClick={() => setMobileOpen(false)} className="text-sm text-foreground py-1">Register</Link>
-                  </>
-                )}
+              {/* Dropdown suggestions */}
+              {searchResults && searchResults.length > 0 && searchQuery.length > 1 && (
+                <div className="absolute left-0 right-0 top-full mt-px bg-white border border-gray-200 shadow-lg z-50" data-testid="search-suggestions">
+                  {searchResults.map((p) => (
+                    <Link
+                      key={p.slug}
+                      href={`/product/${p.slug}`}
+                      onClick={() => setSearchQuery("")}
+                      className="flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 transition-colors"
+                    >
+                      <img src={p.images[0]} alt={p.name} className="w-8 h-10 object-cover" />
+                      <div>
+                        <p className="text-xs font-medium text-gray-800">{p.name}</p>
+                        <p className="text-[11px] text-gray-400">{p.category}</p>
+                      </div>
+                      <span className="ml-auto text-xs font-semibold text-[#b8860b]">
+                        ₹{(p.discountPrice ?? p.price).toLocaleString("en-IN")}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </form>
+
+            {/* WhatsApp-style icon */}
+            <a
+              href="https://wa.me/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 text-gray-600 hover:text-black transition-colors"
+              title="Chat with us"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg>
+            </a>
+
+            {/* Account */}
+            {user ? (
+              <div className="relative group">
+                <button className="p-1.5 text-gray-600 hover:text-black transition-colors" data-testid="button-account">
+                  <User size={18} strokeWidth={1.8} />
+                </button>
+                <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-gray-200 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                  <Link href="/account" className="block px-4 py-2.5 text-xs tracking-wide text-gray-700 hover:bg-gray-50 transition-colors uppercase">My Account</Link>
+                  {user.role === "admin" && (
+                    <Link href="/admin" className="block px-4 py-2.5 text-xs tracking-wide text-gray-700 hover:bg-gray-50 transition-colors uppercase">Admin</Link>
+                  )}
+                  <button onClick={logout} className="w-full text-left px-4 py-2.5 text-xs tracking-wide text-gray-700 hover:bg-gray-50 transition-colors border-t border-gray-100 uppercase">Sign Out</button>
+                </div>
               </div>
-            </nav>
+            ) : (
+              <Link href="/login" className="p-1.5 text-gray-600 hover:text-black transition-colors" data-testid="link-login">
+                <User size={18} strokeWidth={1.8} />
+              </Link>
+            )}
+
+            {/* Wishlist */}
+            <Link href="/account" className="p-1.5 text-gray-600 hover:text-black transition-colors" data-testid="link-wishlist">
+              <Heart size={18} strokeWidth={1.8} />
+            </Link>
+
+            {/* Cart */}
+            <Link href="/cart" className="relative p-1.5 text-gray-600 hover:text-black transition-colors" data-testid="link-cart">
+              <ShoppingBag size={18} strokeWidth={1.8} />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#b8860b] text-white text-[10px] rounded-full flex items-center justify-center font-semibold" data-testid="text-cart-count">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </div>
-        )}
+
+          {/* Mobile right side */}
+          <div className="flex md:hidden items-center gap-3">
+            <Link href="/cart" className="relative p-1.5 text-gray-700">
+              <ShoppingBag size={20} strokeWidth={1.8} />
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#b8860b] text-white text-[10px] rounded-full flex items-center justify-center font-semibold">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="p-1.5 text-gray-700" data-testid="button-mobile-menu">
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Mobile Nav */}
+      {mobileOpen && (
+        <div className="md:hidden border-b border-gray-200 bg-white" data-testid="mobile-nav">
+          {/* Mobile search */}
+          <div className="px-4 pt-4 pb-2">
+            <form onSubmit={handleSearch} className="flex items-center border border-gray-300">
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for Anarkali"
+                className="flex-1 pl-3 py-2 text-sm text-gray-700 outline-none bg-transparent"
+              />
+              <button type="submit" className="w-10 h-10 flex items-center justify-center bg-black text-white">
+                <Search size={15} />
+              </button>
+            </form>
+          </div>
+          <nav className="flex flex-col px-4 pb-4">
+            {navLinks.map((link) => {
+              const cat = categories?.find(
+                (c) => c.slug === link.slug || c.name.toUpperCase() === link.label
+              );
+              const href = cat ? `/category/${cat.slug}` : `/category/${link.slug}`;
+              return (
+                <Link
+                  key={link.label}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  className="py-3 border-b border-gray-100 text-[13px] font-semibold tracking-[0.1em]"
+                  style={{ color: link.gold ? "#b8860b" : "#222" }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <div className="pt-3 flex flex-col gap-2">
+              {user ? (
+                <>
+                  <Link href="/account" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">My Account</Link>
+                  {user.role === "admin" && <Link href="/admin" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">Admin</Link>}
+                  <Link href="/account" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">Wishlist</Link>
+                  <button onClick={() => { logout(); setMobileOpen(false); }} className="text-left text-sm text-gray-700 py-1">Sign Out</button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">Sign In</Link>
+                  <Link href="/register" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">Register</Link>
+                </>
+              )}
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
