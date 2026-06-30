@@ -133,7 +133,12 @@ export default function Header() {
               href="/stores"
               className="flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.08em] text-gray-700 hover:text-black transition-colors whitespace-nowrap"
             >
-              <MapPin size={15} strokeWidth={1.8} />
+              <img
+                src="https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-30,c-at_max/cdn/shop/files/Find-a-store-icon-black.svg?v=8374190354904078554"
+                width={22}
+                height={18}
+                alt=""
+              />
               Find Store
             </Link>
           </nav>
