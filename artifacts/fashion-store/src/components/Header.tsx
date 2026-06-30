@@ -117,10 +117,10 @@ export default function Header() {
   }
 
   const navLinks = [
-    { label: "WOMEN", slug: "women" },
-    { label: "MEN", slug: "men" },
-    { label: "BRIDAL", slug: "bridal" },
-    { label: "LUXE", slug: "luxe", gold: true },
+    { label: "WOMEN", slug: "women", href: "/category/women" },
+    { label: "MEN", slug: "men", href: "/category/men" },
+    { label: "BRIDAL", slug: "bridal", href: "/category/bridal" },
+    { label: "LUXE", slug: "luxe", href: "/category/luxe", gold: true },
   ];
 
   return (
@@ -133,30 +133,22 @@ export default function Header() {
 
           {/* LEFT — Nav links */}
           <nav className="hidden md:flex items-center gap-7 flex-shrink-0">
-            {navLinks.map((link) => {
-              const cat = categories?.find(
-                (c) => c.slug === link.slug || c.name.toUpperCase() === link.label
-              );
-              const href = cat ? `/category/${cat.slug}` : `/category/${link.slug}`;
-              return (
-                <Link
-                  key={link.label}
-                  href={href}
-                  className="text-[13px] font-semibold tracking-[0.1em] whitespace-nowrap px-2 py-1 transition-all hover:bg-black hover:text-white"
-                  style={{ color: link.gold ? "#b8860b" : "#222" }}
-                  onMouseEnter={(e) => {
-                    if (!link.gold) {
-                      (e.currentTarget as HTMLElement).style.color = "#fff";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.color = link.gold ? "#b8860b" : "#222";
-                  }}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-[13px] font-semibold tracking-[0.1em] whitespace-nowrap px-2 py-1 transition-all hover:bg-black hover:text-white"
+                style={{ color: link.gold ? "#b8860b" : "#222" }}
+                onMouseEnter={(e) => {
+                  if (!link.gold) (e.currentTarget as HTMLElement).style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.color = link.gold ? "#b8860b" : "#222";
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
             <Link
               href="/stores"
               className="flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.08em] text-gray-700 hover:text-black transition-colors whitespace-nowrap"
