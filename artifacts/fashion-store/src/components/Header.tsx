@@ -373,6 +373,28 @@ export default function Header() {
         </div>
       </div>
 
+      {/* Scrolling sale ticker */}
+      <div className="bg-[#d10024] overflow-hidden py-1.5" style={{ whiteSpace: "nowrap" }}>
+        <div
+          style={{
+            display: "inline-block",
+            animation: "marquee-scroll 28s linear infinite",
+          }}
+        >
+          {Array.from({ length: 14 }).map((_, i) => (
+            <span key={i} className="text-white text-[11px] font-bold tracking-[0.15em] mx-6">
+              SALE ENDS SOON!
+            </span>
+          ))}
+        </div>
+        <style>{`
+          @keyframes marquee-scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+        `}</style>
+      </div>
+
       {/* Mobile Nav */}
       {mobileOpen && (
         <div className="md:hidden border-b border-gray-200 bg-white" data-testid="mobile-nav">
