@@ -42,14 +42,27 @@ function AnnouncementBar() {
 }
 
 const COUNTRIES = [
-  { code: "IN", flag: "🇮🇳", name: "India", currency: "INR" },
-  { code: "US", flag: "🇺🇸", name: "USA", currency: "USD" },
-  { code: "GB", flag: "🇬🇧", name: "UK", currency: "GBP" },
-  { code: "AE", flag: "🇦🇪", name: "UAE", currency: "AED" },
-  { code: "CA", flag: "🇨🇦", name: "Canada", currency: "CAD" },
-  { code: "AU", flag: "🇦🇺", name: "Australia", currency: "AUD" },
-  { code: "SG", flag: "🇸🇬", name: "Singapore", currency: "SGD" },
+  { code: "in", name: "India", currency: "INR" },
+  { code: "us", name: "USA", currency: "USD" },
+  { code: "gb", name: "UK", currency: "GBP" },
+  { code: "ae", name: "UAE", currency: "AED" },
+  { code: "ca", name: "Canada", currency: "CAD" },
+  { code: "au", name: "Australia", currency: "AUD" },
+  { code: "sg", name: "Singapore", currency: "SGD" },
 ];
+
+function FlagImg({ code, width = 23, height = 17 }: { code: string; width?: number; height?: number }) {
+  return (
+    <img
+      src={`https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/${code}.svg`}
+      alt={code}
+      width={width}
+      height={height}
+      className="object-cover"
+      style={{ display: "inline-block" }}
+    />
+  );
+}
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -211,7 +224,7 @@ export default function Header() {
                 className="flex items-center gap-1 p-1.5 text-gray-600 hover:text-black transition-colors"
                 title="Select country"
               >
-                <span className="text-lg leading-none">{selectedCountry.flag}</span>
+                <FlagImg code={selectedCountry.code} width={23} height={17} />
                 <ChevronDown size={12} strokeWidth={2} className={`transition-transform ${countryOpen ? "rotate-180" : ""}`} />
               </button>
               {countryOpen && (
@@ -222,7 +235,7 @@ export default function Header() {
                       onClick={() => { setSelectedCountry(c); setCountryOpen(false); }}
                       className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left hover:bg-gray-50 transition-colors ${selectedCountry.code === c.code ? "bg-gray-50 font-semibold" : ""}`}
                     >
-                      <span className="text-base">{c.flag}</span>
+                      <FlagImg code={c.code} width={22} height={16} />
                       <span className="flex-1 text-gray-700">{c.name}</span>
                       <span className="text-gray-400 text-[10px]">{c.currency}</span>
                     </button>
