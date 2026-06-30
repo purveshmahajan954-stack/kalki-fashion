@@ -97,6 +97,82 @@ export default function Home() {
         </div>
       </section>
 
+      {/* USP Feature Strip */}
+      <section className="border-b border-gray-200 bg-white py-4">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            {[
+              { icon: "🚚", label: "24 Hour Dispatch" },
+              { icon: "🔄", label: "Easy Returns" },
+              { icon: "🎁", label: "Free Shipping* Over ₹3000" },
+              { icon: "⚡", label: "KALKI Express" },
+              { icon: "✂️", label: "Custom Fitting" },
+              { icon: "✨", label: "New Styles Daily" },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center gap-1.5 flex-1 min-w-[80px]">
+                <span className="text-2xl leading-none">{item.icon}</span>
+                <span className="text-[11px] font-medium text-gray-700 text-center tracking-wide whitespace-nowrap" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4-Image Promo Grid */}
+      <section className="bg-white py-4 px-4 sm:px-6">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {[
+            {
+              img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80",
+              title: "Styles Under ₹999",
+              badge: "ON SALE",
+              badgeStyle: "bg-[#d10024] text-white",
+              href: "/category/sarees",
+            },
+            {
+              img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=600&q=80",
+              title: "Most Wishlisted Styles",
+              badge: "UPTO 50% OFF!",
+              badgeStyle: "bg-black text-white",
+              href: "/category/lehenga",
+            },
+            {
+              img: "https://images.unsplash.com/photo-1591130222369-26a7c1c29d35?w=600&q=80",
+              title: "Occasion Styles",
+              badge: "UP TO 50% OFF!",
+              badgeStyle: "bg-black text-white",
+              href: "/category/bridal",
+            },
+            {
+              img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80",
+              title: "Buy Any 3 Fits @ ₹299",
+              badge: "EXPLORE NOW",
+              badgeStyle: "bg-white text-black",
+              href: "/category/indo-western",
+            },
+          ].map((card) => (
+            <Link key={card.title} href={card.href} className="group relative overflow-hidden block aspect-[3/4]">
+              <img
+                src={card.img}
+                alt={card.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <h3 className="text-white text-sm sm:text-base font-semibold mb-2 leading-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  {card.title}
+                </h3>
+                <span className={`inline-block text-[10px] font-bold tracking-widest px-3 py-1 ${card.badgeStyle}`}>
+                  {card.badge}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Category Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
         <div className="text-center mb-12">
