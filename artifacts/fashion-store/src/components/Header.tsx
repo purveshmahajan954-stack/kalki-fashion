@@ -78,7 +78,7 @@ export default function Header() {
 
       {/* Main header */}
       <div className="border-b border-gray-200">
-        <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between h-[72px] gap-4">
+        <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between h-[72px] gap-4 relative">
 
           {/* LEFT — Nav links */}
           <nav className="hidden md:flex items-center gap-7 flex-shrink-0">
@@ -115,16 +115,16 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* CENTER — Logo */}
-          <Link href="/" className="flex flex-col items-center flex-shrink-0 select-none">
+          {/* CENTER — Logo (absolutely centered) */}
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center select-none">
             <span
-              className="font-serif leading-none tracking-[0.35em] text-black"
+              className="font-serif leading-none text-black"
               style={{ fontSize: "28px", letterSpacing: "0.35em" }}
             >
               ELARA
             </span>
             <span
-              className="text-[9px] tracking-[0.55em] text-gray-500 mt-0.5 font-light"
+              className="text-[9px] text-gray-500 mt-0.5 font-light"
               style={{ letterSpacing: "0.5em" }}
             >
               FASHION

@@ -9,27 +9,27 @@ import { useGetFeaturedProducts, useGetNewArrivals, useListCategories } from "@w
 const HERO_SLIDES = [
   {
     id: 1,
-    title: "The Bridal Edit",
-    subtitle: "Timeless pieces for your most cherished moments",
-    cta: "Explore Collection",
-    href: "/category/lehengas",
-    bg: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1400&q=80",
+    title: "The Grand Sale",
+    subtitle: "Exclusive discounts on premium ethnic wear",
+    cta: "Shop Now",
+    href: "/category/lehenga",
+    bg: "/banner1.avif",
   },
   {
     id: 2,
-    title: "Silk Sarees",
-    subtitle: "Woven with centuries of artistry",
-    cta: "Shop Sarees",
+    title: "Flat Price Festival",
+    subtitle: "Designer styles at unbeatable prices",
+    cta: "Explore Deals",
     href: "/category/sarees",
-    bg: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=1400&q=80",
+    bg: "/banner2.avif",
   },
   {
     id: 3,
-    title: "Festive Season",
-    subtitle: "Celebrate in grace and splendour",
-    cta: "View Festive Wear",
-    href: "/category/suits",
-    bg: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=1400&q=80",
+    title: "New Arrivals",
+    subtitle: "Fresh styles added every day",
+    cta: "View Collection",
+    href: "/category/new-arrivals",
+    bg: "/banner3.avif",
   },
 ];
 
@@ -62,45 +62,37 @@ export default function Home() {
       <Header />
 
       {/* Hero Slider */}
-      <section className="relative h-[85vh] overflow-hidden" data-testid="hero-slider">
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
-          style={{ backgroundImage: `url(${current.bg})` }}
-        />
-        <div className="absolute inset-0 bg-black/35" />
-        <div className="relative h-full flex items-center">
-          <div className="max-w-7xl mx-auto px-6 sm:px-10">
-            <div className="max-w-xl">
-              <p className="text-white/80 text-xs tracking-widest uppercase mb-4" style={{ letterSpacing: "0.2em" }}>
-                New Collection
-              </p>
-              <h1 className="font-serif text-5xl sm:text-6xl text-white leading-tight mb-6">
-                {current.title}
-              </h1>
-              <p className="text-white/80 text-lg mb-10 leading-relaxed">
-                {current.subtitle}
-              </p>
-              <Link href={current.href}>
-                <button className="bg-white text-foreground text-sm px-10 py-4 tracking-widest uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-medium" data-testid="button-hero-cta">
-                  {current.cta}
-                </button>
-              </Link>
+      <section className="relative w-full overflow-hidden" data-testid="hero-slider">
+        {/* Slides */}
+        <div className="relative w-full">
+          {HERO_SLIDES.map((s, i) => (
+            <div
+              key={s.id}
+              className="absolute inset-0 transition-opacity duration-700"
+              style={{ opacity: i === slide ? 1 : 0, zIndex: i === slide ? 1 : 0, position: i === slide ? "relative" : "absolute" }}
+            >
+              <img
+                src={s.bg}
+                alt={s.title}
+                className="w-full object-cover"
+                style={{ display: "block" }}
+              />
             </div>
-          </div>
+          ))}
         </div>
 
         {/* Controls */}
-        <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/20 hover:bg-white/40 text-white transition-colors" data-testid="button-hero-prev">
+        <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/20 hover:bg-white/40 text-white transition-colors" data-testid="button-hero-prev">
           <ChevronLeft size={24} />
         </button>
-        <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/20 hover:bg-white/40 text-white transition-colors" data-testid="button-hero-next">
+        <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/20 hover:bg-white/40 text-white transition-colors" data-testid="button-hero-next">
           <ChevronRight size={24} />
         </button>
 
         {/* Dots */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
           {HERO_SLIDES.map((_, i) => (
-            <button key={i} onClick={() => setSlide(i)} className={`w-8 h-0.5 transition-all ${i === slide ? "bg-white" : "bg-white/40"}`} />
+            <button key={i} onClick={() => setSlide(i)} className={`w-8 h-0.5 transition-all ${i === slide ? "bg-white" : "bg-white/50"}`} />
           ))}
         </div>
       </section>
