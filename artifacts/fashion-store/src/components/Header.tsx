@@ -243,23 +243,23 @@ export default function Header() {
       </div>
 
       {/* Sub-nav strip — desktop only */}
-      <div className="hidden md:block border-b border-gray-200 bg-white overflow-hidden">
-        <div className="max-w-[1400px] mx-auto px-6 flex items-center gap-0 h-10">
+      <div className="hidden md:block border-b border-gray-200 bg-white">
+        <div className="w-full px-4 flex items-center h-10">
           {/* Promo badges */}
-          <div className="flex items-center gap-0 flex-shrink-0 border-r border-gray-200 pr-4 mr-4">
-            <Link href="/category/new-arrivals" className="px-2.5 py-1 bg-[#d97706] text-white text-[11px] font-bold tracking-wider mr-1.5 whitespace-nowrap hover:bg-[#b45309] transition-colors">
+          <div className="flex items-center flex-shrink-0 border-r border-gray-200 pr-3 mr-3 gap-1">
+            <Link href="/category/new-arrivals" className="px-2 py-0.5 bg-[#d97706] text-white text-[10px] font-bold tracking-wide whitespace-nowrap hover:bg-[#b45309] transition-colors">
               READY TO SHIP
             </Link>
-            <Link href="/cart" className="px-2.5 py-1 bg-[#7c2d12] text-white text-[11px] font-bold tracking-wider mr-1.5 whitespace-nowrap hover:bg-[#6b1f0e] transition-colors">
+            <Link href="/cart" className="px-2 py-0.5 bg-[#7c2d12] text-white text-[10px] font-bold tracking-wide whitespace-nowrap hover:bg-[#6b1f0e] transition-colors">
               BUY 3 @ ₹999
             </Link>
-            <Link href="/category/sale" className="px-2.5 py-1 bg-[#dc2626] text-white text-[11px] font-bold tracking-wider whitespace-nowrap hover:bg-[#b91c1c] transition-colors">
+            <Link href="/category/sale" className="px-2 py-0.5 bg-[#dc2626] text-white text-[10px] font-bold tracking-wide whitespace-nowrap hover:bg-[#b91c1c] transition-colors">
               SALE
             </Link>
           </div>
 
-          {/* Category quick-links — scrollable */}
-          <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide flex-1" style={{ scrollbarWidth: "none" }}>
+          {/* Category quick-links — evenly spread */}
+          <div className="flex items-center justify-between flex-1 gap-0">
             {[
               { label: "SAREES", slug: "sarees" },
               { label: "SALWAR KAMEEZ", slug: "salwar-kameez" },
@@ -283,7 +283,7 @@ export default function Header() {
                 <Link
                   key={item.label}
                   href={href}
-                  className="text-[11px] font-semibold tracking-[0.1em] whitespace-nowrap transition-colors flex-shrink-0 py-1"
+                  className="text-[10px] font-semibold tracking-[0.06em] whitespace-nowrap transition-colors flex-shrink-0 py-1 px-1 hover:text-black"
                   style={{
                     color: isActive ? "#000" : "#555",
                     borderBottom: isActive ? "2px solid #000" : "2px solid transparent",
