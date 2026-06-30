@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Heart, User, Search, Menu, X, MapPin, Video, Shirt, Truck, RotateCcw } from "lucide-react";
+import { ShoppingBag, Heart, User, Search, Menu, X, MapPin, Video, Shirt, Truck, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
 import { useGetCart, useListCategories, useSearchProducts } from "@workspace/api-client-react";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -44,7 +44,7 @@ function AnnouncementBar() {
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const searchRef = useRef<HTMLInputElement>(null);
   const { user, logout } = useAuth();
 
@@ -230,6 +230,61 @@ export default function Header() {
             <button onClick={() => setMobileOpen(!mobileOpen)} className="p-1.5 text-gray-700" data-testid="button-mobile-menu">
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Sub-nav strip — desktop only */}
+      <div className="hidden md:block border-b border-gray-200 bg-white overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 flex items-center gap-0 h-10">
+          {/* Promo badges */}
+          <div className="flex items-center gap-0 flex-shrink-0 border-r border-gray-200 pr-4 mr-4">
+            <Link href="/category/new-arrivals" className="px-2.5 py-1 bg-[#d97706] text-white text-[11px] font-bold tracking-wider mr-1.5 whitespace-nowrap hover:bg-[#b45309] transition-colors">
+              READY TO SHIP
+            </Link>
+            <Link href="/cart" className="px-2.5 py-1 bg-[#7c2d12] text-white text-[11px] font-bold tracking-wider mr-1.5 whitespace-nowrap hover:bg-[#6b1f0e] transition-colors">
+              BUY 3 @ ₹999
+            </Link>
+            <Link href="/category/sale" className="px-2.5 py-1 bg-[#dc2626] text-white text-[11px] font-bold tracking-wider whitespace-nowrap hover:bg-[#b91c1c] transition-colors">
+              SALE
+            </Link>
+          </div>
+
+          {/* Category quick-links — scrollable */}
+          <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide flex-1" style={{ scrollbarWidth: "none" }}>
+            {[
+              { label: "SAREES", slug: "sarees" },
+              { label: "SALWAR KAMEEZ", slug: "salwar-kameez" },
+              { label: "LEHENGA", slug: "lehenga" },
+              { label: "INDO WESTERN", slug: "indo-western" },
+              { label: "BLOUSE", slug: "blouse" },
+              { label: "JEWELLERY", slug: "jewellery" },
+              { label: "KIDS", slug: "kids" },
+              { label: "CO-ORDS", slug: "co-ords" },
+              { label: "BESTSELLERS", slug: "bestsellers" },
+              { label: "NEW", slug: "new-arrivals" },
+              { label: "WEDDING", slug: "bridal" },
+              { label: "COLLECTION", slug: "collection" },
+            ].map((item) => {
+              const cat = categories?.find(
+                (c) => c.slug === item.slug || c.name.toUpperCase() === item.label
+              );
+              const href = cat ? `/category/${cat.slug}` : `/category/${item.slug}`;
+              const isActive = location === href;
+              return (
+                <Link
+                  key={item.label}
+                  href={href}
+                  className="text-[11px] font-semibold tracking-[0.1em] whitespace-nowrap transition-colors flex-shrink-0 py-1"
+                  style={{
+                    color: isActive ? "#000" : "#555",
+                    borderBottom: isActive ? "2px solid #000" : "2px solid transparent",
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
