@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Heart, User, Search, Menu, X, MapPin, Video, Shirt, Truck, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
+import { ShoppingBag, Heart, User, Search, Menu, X, MapPin, Video, Shirt, Truck, RotateCcw, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { useGetCart, useListCategories, useSearchProducts } from "@workspace/api-client-react";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -41,12 +41,35 @@ function AnnouncementBar() {
   );
 }
 
+const COUNTRIES = [
+  { code: "IN", flag: "🇮🇳", name: "India", currency: "INR" },
+  { code: "US", flag: "🇺🇸", name: "USA", currency: "USD" },
+  { code: "GB", flag: "🇬🇧", name: "UK", currency: "GBP" },
+  { code: "AE", flag: "🇦🇪", name: "UAE", currency: "AED" },
+  { code: "CA", flag: "🇨🇦", name: "Canada", currency: "CAD" },
+  { code: "AU", flag: "🇦🇺", name: "Australia", currency: "AUD" },
+  { code: "SG", flag: "🇸🇬", name: "Singapore", currency: "SGD" },
+];
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [countryOpen, setCountryOpen] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [location, setLocation] = useLocation();
   const searchRef = useRef<HTMLInputElement>(null);
+  const countryRef = useRef<HTMLDivElement>(null);
   const { user, logout } = useAuth();
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (countryRef.current && !countryRef.current.contains(e.target as Node)) {
+        setCountryOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const { data: cart } = useGetCart();
   const { data: categories } = useListCategories();
@@ -175,6 +198,33 @@ export default function Header() {
                 </div>
               )}
             </form>
+
+            {/* Country selector */}
+            <div ref={countryRef} className="relative">
+              <button
+                onClick={() => setCountryOpen((o) => !o)}
+                className="flex items-center gap-1 p-1.5 text-gray-600 hover:text-black transition-colors"
+                title="Select country"
+              >
+                <span className="text-lg leading-none">{selectedCountry.flag}</span>
+                <ChevronDown size={12} strokeWidth={2} className={`transition-transform ${countryOpen ? "rotate-180" : ""}`} />
+              </button>
+              {countryOpen && (
+                <div className="absolute right-0 top-full mt-1 w-44 bg-white border border-gray-200 shadow-lg z-50">
+                  {COUNTRIES.map((c) => (
+                    <button
+                      key={c.code}
+                      onClick={() => { setSelectedCountry(c); setCountryOpen(false); }}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left hover:bg-gray-50 transition-colors ${selectedCountry.code === c.code ? "bg-gray-50 font-semibold" : ""}`}
+                    >
+                      <span className="text-base">{c.flag}</span>
+                      <span className="flex-1 text-gray-700">{c.name}</span>
+                      <span className="text-gray-400 text-[10px]">{c.currency}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* WhatsApp-style icon */}
             <a
