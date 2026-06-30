@@ -102,15 +102,21 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex items-center justify-between gap-2 flex-wrap">
             {[
-              { icon: "🚚", label: "24 Hour Dispatch" },
-              { icon: "🔄", label: "Easy Returns" },
-              { icon: "🎁", label: "Free Shipping* Over ₹3000" },
-              { icon: "⚡", label: "KALKI Express" },
-              { icon: "✂️", label: "Custom Fitting" },
-              { icon: "✨", label: "New Styles Daily" },
+              { file: "icon1.svg?v=1755609266",   label: "24 Hour Dispatch" },
+              { file: "Easy_Returns.svg",          label: "Easy Returns" },
+              { file: "Shipping_Box.svg",          label: "Free Shipping* Over ₹3000" },
+              { file: "icon_5.svg?v=1755609266",   label: "KALKI Express" },
+              { file: "Stiching.svg",              label: "Custom Fitting" },
+              { file: "cloth-icon.svg",            label: "New Styles Daily" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-1.5 flex-1 min-w-[80px]">
-                <span className="text-2xl leading-none">{item.icon}</span>
+                <img
+                  src={`https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-50,c-at_max/cdn/shop/files/${item.file}`}
+                  alt={item.label}
+                  width={40}
+                  height={40}
+                  loading="lazy"
+                />
                 <span className="text-[11px] font-medium text-gray-700 text-center tracking-wide whitespace-nowrap" style={{ fontFamily: "'Poppins', sans-serif" }}>
                   {item.label}
                 </span>
