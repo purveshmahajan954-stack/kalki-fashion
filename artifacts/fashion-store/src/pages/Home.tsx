@@ -1,10 +1,88 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { useGetFeaturedProducts, useGetNewArrivals, useListCategories } from "@workspace/api-client-react";
+
+const TRENDING_ITEMS = [
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/green-bandhani-banarasi-dhoti-set-with-gotta-work-sg400298-1_acde47b5-33ae-48fe-8e30-2fce484876f9.jpg?v=1780743070", name: "Green Printed Cotton Kurta Set And Dupatta", slug: "green-printed-cotton-kurta-set-and-dupatta", video: "https://imagekit.io/player/embed/4sjmoqtje/SG400298.mp4" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/green-bandhani-banarasi-dhoti-set-with-gotta-work-sg400298-1_acde47b5-33ae-48fe-8e30-2fce484876f9.jpg?v=1780743070&tr=fo-auto", name: "Red Embroidered Lehenga Choli", slug: "red-embroidered-lehenga-choli", video: null },
+  { img: "https://images.unsplash.com/photo-1591130222369-26a7c1c29d35?w=350&q=80", name: "Blue Silk Anarkali Gown", slug: "blue-silk-anarkali-gown", video: null },
+  { img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=350&q=80", name: "Yellow Banarasi Silk Saree", slug: "yellow-banarasi-silk-saree", video: null },
+  { img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=350&q=80", name: "Pink Chanderi Salwar Kameez", slug: "pink-chanderi-salwar-kameez", video: null },
+  { img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=350&q=80", name: "Beige Organza Dupatta Set", slug: "beige-organza-dupatta-set", video: null },
+  { img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=350&q=80&sig=7", name: "Peach Georgette Sharara Set", slug: "peach-georgette-sharara-set", video: null },
+  { img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=350&q=80&sig=8", name: "Ivory Chikankari Kurta", slug: "ivory-chikankari-kurta", video: null },
+];
+
+const CARD_W = 244;
+const CARD_GAP = 12;
+
+function TrendingSlider() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  function updateButtons() {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 4);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+  }
+
+  function slide(dir: 1 | -1) {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * (CARD_W + CARD_GAP) * 3, behavior: "smooth" });
+  }
+
+  return (
+    <section className="bg-white py-8 relative" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      <div className="max-w-[1400px] mx-auto px-6">
+        <h2 className="text-center text-[18px] font-semibold text-gray-800 mb-5 tracking-wide">
+          Trending Styles On SALE
+        </h2>
+        <div className="relative">
+          {/* Prev button */}
+          <button
+            onClick={() => slide(-1)}
+            disabled={!canPrev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-9 h-9 bg-white border border-gray-300 shadow flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-0"
+            aria-label="Previous"
+          >
+            <ChevronLeft size={18} strokeWidth={1.5} />
+          </button>
+
+          {/* Scrollable track */}
+          <div
+            ref={trackRef}
+            onScroll={updateButtons}
+            className="flex overflow-x-auto"
+            style={{ gap: CARD_GAP, scrollbarWidth: "none", msOverflowStyle: "none", scrollSnapType: "x mandatory" }}
+          >
+            {TRENDING_ITEMS.map((item) => (
+              <div key={item.slug} style={{ scrollSnapAlign: "start", flexShrink: 0 }}>
+                <TrendingCard {...item} />
+              </div>
+            ))}
+          </div>
+
+          {/* Next button */}
+          <button
+            onClick={() => slide(1)}
+            disabled={!canNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-9 h-9 bg-white border border-gray-300 shadow flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-0"
+            aria-label="Next"
+          >
+            <ChevronRight size={18} strokeWidth={1.5} />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function TrendingCard({ img, name, slug, video }: { img: string; name: string; slug: string; video: string | null }) {
   const [hovered, setHovered] = useState(false);
@@ -227,26 +305,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trending Styles On SALE — horizontal video slider */}
-      <section className="bg-white py-8 px-4 sm:px-6">
-        <div className="max-w-[1400px] mx-auto">
-          <h2 className="text-center text-xl font-semibold text-gray-800 mb-6" style={{ fontFamily: "'Poppins', sans-serif" }}>
-            Trending Styles On SALE
-          </h2>
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" style={{ scrollbarWidth: "none" }}>
-            {[
-              { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/green-bandhani-banarasi-dhoti-set-with-gotta-work-sg400298-1_acde47b5-33ae-48fe-8e30-2fce484876f9.jpg?v=1780743070", name: "Green Printed Cotton Kurta Set And Dupatta", slug: "green-printed-cotton-kurta-set-and-dupatta", video: "https://imagekit.io/player/embed/4sjmoqtje/SG400298.mp4" },
-              { img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=350&q=80", name: "Red Embroidered Lehenga Choli", slug: "red-embroidered-lehenga-choli", video: null },
-              { img: "https://images.unsplash.com/photo-1591130222369-26a7c1c29d35?w=350&q=80", name: "Blue Silk Anarkali Gown", slug: "blue-silk-anarkali-gown", video: null },
-              { img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=350&q=80", name: "Yellow Banarasi Silk Saree", slug: "yellow-banarasi-silk-saree", video: null },
-              { img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=350&q=80", name: "Pink Chanderi Salwar Kameez", slug: "pink-chanderi-salwar-kameez", video: null },
-              { img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=350&q=80&sig=2", name: "Beige Organza Dupatta Set", slug: "beige-organza-dupatta-set", video: null },
-            ].map((item) => (
-              <TrendingCard key={item.slug} {...item} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Trending Styles On SALE — Swiper-style slider */}
+      <TrendingSlider />
 
       {/* Full-width Promo Banner */}
       <section className="w-full">
