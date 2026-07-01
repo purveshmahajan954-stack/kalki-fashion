@@ -34,6 +34,119 @@ const TRENDING_ITEMS = [
   { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/grey-tissue-silk-woven-saree-with-zig-zag-motif-and-zari-border-sg351912-1.jpg?v=1762017437", name: "Grey Tissue Silk Woven Saree With Zig Zag Motif And Zari Border", slug: "grey-tissue-silk-woven-saree-with-zig-zag-motif-and-zari-border", video: "https://imagekit.io/player/embed/4sjmoqtje/SG351912.mp4" },
 ];
 
+const LEHENGA_ITEMS = [
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/beige-chanderi-silk-embroidered-kurta-set-sg326040-1_8a49b180-c945-44a6-bb14-d857261b2bba.jpg?v=1767598252", name: "Cream Floral Co-ord Set With Cut Dana And Sequins Work", slug: "cream-floral-co-ord-set-with-cut-dana", price: 88, originalPrice: 110, discount: 20 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/maroon-hand-dyed-ajrakh-jacket-shirt-and-dhoti-set-sg337285-4_ac925aa8-fc2b-4afa-925a-1ca865eac007.jpg?v=1763535305", name: "Maroon Hand Dyed Ajrakh Jacket, Shirt and Dhoti Set", slug: "maroon-hand-dyed-ajrakh-jacket-shirt-and-dhoti-set", price: 142, originalPrice: 189, discount: 25 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/yellow-silk-sequin-work-kurta-and-skirt-set-sg359428-1_650f0659-9e49-4321-ac39-1a3608f9de91.jpg?v=1764567367", name: "Yellow Cutdana Work Kurta and Skirt Set", slug: "yellow-silk-sequin-work-kurta-and-skirt-set", price: 194, originalPrice: 259, discount: 25 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/purple-silk-embroidered-kurta-and-skirt-set-sg359436-1_d6afe8b8-48e4-4e7c-8e39-3e70a11098f8.jpg?v=1764567367", name: "Purple Silk Embroidered Kurta and Skirt Set", slug: "purple-silk-embroidered-kurta-and-skirt-set", price: 209, originalPrice: 279, discount: 25 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/purple-embellished-drape-skirt-indo-western-set-sg383005-1_e5dfccc1-30bb-40e4-bcbb-b86252667a0d.jpg?v=1774344055", name: "Purple Indo-Western Co-ord Set With Mirror Work", slug: "purple-embellished-drape-skirt-indo-western-set", price: 88, originalPrice: 110, discount: 20 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/pink-embellished-drape-skirt-indo-western-set-sg399235-1_838a1a41-e7e0-45f2-925e-84d4f9eead8e.jpg?v=1774344054", name: "Pink Embellished Drape Skirt Indo Western Set", slug: "pink-embellished-drape-skirt-indo-western-set", price: 94, originalPrice: 125, discount: 25 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/wine-silk-cape-co-ord-set-sg382190-1_dad39885-571c-4d8c-9e95-fee8e8b50961.jpg?v=1767870928", name: "Wine Silk Cape Co-ord Set", slug: "wine-silk-cape-co-ord-set", price: 118, originalPrice: 157, discount: 25 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/blue-chanderi-kurta-set-with-zari-and-sequins-sg400593-1_0b3cdbd1-c29a-4bed-8e03-a3c206daf913.jpg?v=1777970055", name: "Blue Chanderi Kurta Set With Zari And Sequins", slug: "blue-chanderi-kurta-set-with-zari-and-sequins", price: 76, originalPrice: 99, discount: 23 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/yellow-chanderi-kurta-set-with-gotta-patti-work-sg400613-1_da6f91fd-2e48-4b3b-9dfe-8b1275535751.jpg?v=1777970055", name: "Yellow Chanderi Kurta Set With Gotta Patti Work", slug: "yellow-chanderi-kurta-set-with-gotta-patti-work", price: 82, originalPrice: 109, discount: 25 },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/pink-thread-and-zardosi-cape-style-top-with-palazzo-sg382385-1_044fe455-7ce0-41ec-ba51-1b9fe044f783.jpg?v=1769257848", name: "Pink Thread And Zardosi Cape Style Top With Palazzo", slug: "pink-thread-and-zardosi-cape-style-top-with-palazzo", price: 136, originalPrice: 181, discount: 25 },
+];
+
+const CARD_W = 210;
+const CARD_GAP = 12;
+
+function CategoryProductSlider({ title, items, viewAllHref }: {
+  title: string;
+  viewAllHref: string;
+  items: { img: string; name: string; slug: string; price: number; originalPrice: number; discount: number }[];
+}) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  function updateButtons() {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 4);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+  }
+
+  function slide(dir: 1 | -1) {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * (CARD_W + CARD_GAP) * 2, behavior: "smooth" });
+  }
+
+  return (
+    <section className="bg-white py-8" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      <div className="max-w-[1400px] mx-auto px-8">
+        <h2 className="text-center text-[18px] font-normal text-gray-800 mb-6 tracking-wide">
+          {title}
+        </h2>
+        <div className="relative">
+          {/* Prev */}
+          <button
+            onClick={() => slide(-1)}
+            disabled={!canPrev}
+            className="absolute left-0 top-1/2 -translate-y-8 -translate-x-5 z-10 w-8 h-8 bg-white border border-gray-300 shadow-sm flex items-center justify-center hover:bg-gray-50 transition disabled:opacity-0"
+            aria-label="Previous"
+          >
+            <ChevronLeft size={16} strokeWidth={1.5} />
+          </button>
+
+          {/* Track */}
+          <div
+            ref={trackRef}
+            onScroll={updateButtons}
+            className="flex overflow-x-auto"
+            style={{ gap: CARD_GAP, scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {items.map((item) => (
+              <Link
+                key={item.slug}
+                href={`/product/${item.slug}`}
+                style={{ flexShrink: 0, width: CARD_W, display: "block", textDecoration: "none", color: "inherit" }}
+              >
+                <div style={{ width: CARD_W, aspectRatio: "3/4", overflow: "hidden", background: "#f5f5f5" }}>
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.4s ease" }}
+                    loading="lazy"
+                    onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
+                    onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                  />
+                </div>
+                <div style={{ paddingTop: 8 }}>
+                  <p style={{ fontSize: 12, color: "#222", lineHeight: 1.45, marginBottom: 4, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+                    {item.name}
+                  </p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: "#111" }}>${item.price}</span>
+                    <span style={{ fontSize: 12, color: "#999", textDecoration: "line-through" }}>${item.originalPrice}</span>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: "#d10024" }}>{item.discount}% OFF</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Next */}
+          <button
+            onClick={() => slide(1)}
+            disabled={!canNext}
+            className="absolute right-0 top-1/2 -translate-y-8 translate-x-5 z-10 w-8 h-8 bg-white border border-gray-300 shadow-sm flex items-center justify-center hover:bg-gray-50 transition disabled:opacity-0"
+            aria-label="Next"
+          >
+            <ChevronRight size={16} strokeWidth={1.5} />
+          </button>
+        </div>
+
+        <div className="text-center mt-6">
+          <Link href={viewAllHref} className="inline-block border border-gray-800 text-gray-800 text-[11px] font-semibold tracking-widest px-8 py-2.5 hover:bg-gray-800 hover:text-white transition-colors">
+            VIEW ALL
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const COVERFLOW_CARD_W = 260;
 const COVERFLOW_CARD_H = 420;
 const SIDE_SCALE_1 = 0.82;
@@ -440,6 +553,13 @@ export default function Home() {
 
       {/* Trending Styles On SALE — Swiper-style slider */}
       <TrendingSlider />
+
+      {/* Lehengas & Indo Western product slider */}
+      <CategoryProductSlider
+        title="Lehengas & Indo Western"
+        viewAllHref="/category/lehenga"
+        items={LEHENGA_ITEMS}
+      />
 
       {/* Full-width Promo Banner */}
       <section className="w-full">
