@@ -357,31 +357,27 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3">
           {[
             {
-              img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80",
-              title: "Styles Under ₹999",
+              img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,h-780,c-at_max/cdn/shop/files/maroon-hand-dyed-ajrakh-jacket-shirt-and-dhoti-set-sg337285-4_ac925aa8-fc2b-4afa-925a-1ca865eac007.jpg?v=1763535305",
+              title: "Styles Under $99",
               badge: "ON SALE",
-              badgeStyle: "bg-[#d10024] text-white",
               href: "/collections/style-under-usd99",
             },
             {
-              img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=600&q=80",
+              img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,h-780,c-at_max/cdn/shop/files/yellow-floral-co-ord-set-with-cut-dana-and-sequins-work-sg395306-1_3e95e2c5-469b-4418-86a9-a59bdf227916.jpg?v=1775114623",
               title: "Most Wishlisted Styles",
-              badge: "UPTO 50% OFF!",
-              badgeStyle: "bg-black text-white",
+              badge: "UPTO 50% OFF*",
               href: "/category/lehenga",
             },
             {
-              img: "https://images.unsplash.com/photo-1591130222369-26a7c1c29d35?w=600&q=80",
+              img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,h-780,c-at_max/cdn/shop/files/purple-embellished-drape-skirt-indo-western-set-sg383005-1_e5dfccc1-30bb-40e4-bcbb-b86252667a0d.jpg?v=1774344055",
               title: "Occasion Styles",
-              badge: "UP TO 50% OFF!",
-              badgeStyle: "bg-black text-white",
+              badge: "UP TO 50% OFF*",
               href: "/category/bridal",
             },
             {
-              img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80",
-              title: "Buy Any 3 Fits @ ₹299",
+              img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,h-780,c-at_max/cdn/shop/files/green-silk-mens-kurta-jacket-set-sg332820-1_18a5bcf1-f58d-4bcd-83b1-52c065c6c68f.jpg?v=1767349444",
+              title: "Buy Any 3 Fits @ $299",
               badge: "EXPLORE NOW",
-              badgeStyle: "bg-white text-black",
               href: "/category/indo-western",
             },
           ].map((card) => (
@@ -391,12 +387,18 @@ export default function Home() {
                 alt={card.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4">
-                <h3 className="text-white text-sm sm:text-base font-semibold mb-2 leading-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                <h3
+                  className="text-white text-sm sm:text-base font-semibold mb-3 leading-tight drop-shadow"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
                   {card.title}
                 </h3>
-                <span className={`inline-block text-[10px] font-bold tracking-widest px-3 py-1 ${card.badgeStyle}`}>
+                <span
+                  className="inline-block text-[11px] font-semibold tracking-widest px-4 py-1.5 bg-white text-gray-900 border border-white/80"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}
+                >
                   {card.badge}
                 </span>
               </div>
