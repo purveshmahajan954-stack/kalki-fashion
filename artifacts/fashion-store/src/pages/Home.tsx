@@ -835,24 +835,6 @@ export default function Home() {
         </a>
       </section>
 
-      {/* New Arrivals */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <p className="text-xs text-muted-foreground tracking-widest uppercase mb-3" style={{ letterSpacing: "0.2em" }}>Just In</p>
-            <h2 className="font-serif text-3xl sm:text-4xl text-foreground">New Arrivals</h2>
-          </div>
-          <Link href="/category/lehengas" className="flex items-center gap-2 text-sm text-primary hover:gap-3 transition-all">
-            Shop All <ArrowRight size={14} />
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {newArrivals?.map((product) => (
-            <ProductCard key={product.id} product={product as any} />
-          ))}
-        </div>
-      </section>
-
       {/* Customer Stories */}
       <CustomerStoriesSlider />
 
