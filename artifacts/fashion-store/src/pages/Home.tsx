@@ -863,20 +863,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banner Strip */}
-      <section className="bg-primary text-primary-foreground py-5">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-serif text-lg italic">Free Shipping on orders above ₹3,000</p>
-          <div className="flex items-center gap-8 text-sm font-medium tracking-wider">
-            <span>Authentic Fabrics</span>
-            <span className="hidden sm:block">·</span>
-            <span>Expert Craftsmanship</span>
-            <span className="hidden sm:block">·</span>
-            <span>Easy Returns</span>
-          </div>
-        </div>
-      </section>
-
       {/* New Arrivals */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
         <div className="flex items-end justify-between mb-12">
