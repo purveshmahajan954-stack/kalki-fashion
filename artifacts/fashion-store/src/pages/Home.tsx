@@ -147,6 +147,109 @@ function CategoryProductSlider({ title, items, viewAllHref }: {
   );
 }
 
+const TOP_COLLECTIONS = [
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-500,h-680,c-at_max/cdn/shop/files/LightBeigeSilkEmbroideredKurta-sg323624-6_6.jpg?v=1764569265", title: "Embroidered Saree", badge: "UPTO 40% OFF*", href: "/category/sarees" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-500,h-680,c-at_max/cdn/shop/files/black-embroidered-mens-kurta-set-with-kashmiri-print-dupatta-sg332588-1.jpg?v=1763203149", title: "Men's Kurta & Jacket Set", badge: "MINI 30% OFF*", href: "/category/men" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-500,h-680,c-at_max/cdn/shop/files/green-dola-silk-jacket-kurta-set-with-thread-work-sg330390-1_6323cabb-3974-410b-b41c-efd961fcac82.jpg?v=1766750109", title: "Anarkali Suits", badge: "UPTO 50% OFF*", href: "/category/salwar-kameez" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-500,h-680,c-at_max/cdn/shop/files/black-embroidered-silk-kurta-jacket-set-sg376077-1_46d1054c-2b4b-4a45-b282-709cd0a56eac.jpg?v=1767598252", title: "Ready Pleated Saree", badge: "ON SALE", href: "/category/sarees" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-500,h-680,c-at_max/cdn/shop/files/mustard-satin-silk-saree-with-bird-motif-zari-weave-sg350500-1_52c89d9a-2b24-42b7-85a8-0331b963ebef.jpg?v=1769084004", title: "Silk Sarees", badge: "UPTO 35% OFF*", href: "/category/sarees" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-500,h-680,c-at_max/cdn/shop/files/purple-embellished-drape-skirt-indo-western-set-sg383005-1_e5dfccc1-30bb-40e4-bcbb-b86252667a0d.jpg?v=1774344055", title: "Indo Western Sets", badge: "UPTO 40% OFF*", href: "/category/indo-western" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-500,h-680,c-at_max/cdn/shop/files/wine-silk-cape-co-ord-set-sg382190-1_dad39885-571c-4d8c-9e95-fee8e8b50961.jpg?v=1767870928", title: "Co-ord Sets", badge: "UPTO 50% OFF*", href: "/category/co-ords" },
+];
+
+const TOP_CARD_W = 290;
+
+function TopCollectionSlider() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  function updateButtons() {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 4);
+    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+  }
+
+  function slide(dir: 1 | -1) {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * (TOP_CARD_W + 12) * 2, behavior: "smooth" });
+  }
+
+  return (
+    <section className="bg-white py-8" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      <div className="max-w-[1400px] mx-auto px-8">
+        <h2 className="text-center text-[18px] font-normal text-gray-800 mb-6 tracking-wide">
+          Top Collection
+        </h2>
+        <div className="relative">
+          <button
+            onClick={() => slide(-1)}
+            disabled={!canPrev}
+            className="absolute left-0 top-1/2 -translate-y-8 -translate-x-5 z-10 w-8 h-8 bg-white border border-gray-300 shadow-sm flex items-center justify-center hover:bg-gray-50 transition disabled:opacity-0"
+            aria-label="Previous"
+          >
+            <ChevronLeft size={16} strokeWidth={1.5} />
+          </button>
+
+          <div
+            ref={trackRef}
+            onScroll={updateButtons}
+            className="flex overflow-x-auto"
+            style={{ gap: 12, scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {TOP_COLLECTIONS.map((col) => (
+              <a
+                key={col.title}
+                href={col.href}
+                style={{ flexShrink: 0, width: TOP_CARD_W, display: "block", textDecoration: "none", position: "relative", overflow: "hidden" }}
+              >
+                <div style={{ width: TOP_CARD_W, height: 400, overflow: "hidden", position: "relative" }}>
+                  <img
+                    src={col.img}
+                    alt={col.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.45s ease" }}
+                    loading="lazy"
+                    onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
+                    onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                  />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)" }} />
+                  <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 16px 16px" }}>
+                    <p style={{ color: "#fff", fontSize: 16, fontWeight: 600, marginBottom: 8, lineHeight: 1.3 }}>
+                      {col.title}
+                    </p>
+                    <span style={{
+                      display: "inline-block",
+                      color: "#fff",
+                      fontSize: 10,
+                      fontWeight: 600,
+                      letterSpacing: "0.1em",
+                      padding: "4px 12px",
+                      border: "1px solid rgba(255,255,255,0.8)",
+                    }}>
+                      {col.badge}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <button
+            onClick={() => slide(1)}
+            disabled={!canNext}
+            className="absolute right-0 top-1/2 -translate-y-8 translate-x-5 z-10 w-8 h-8 bg-white border border-gray-300 shadow-sm flex items-center justify-center hover:bg-gray-50 transition disabled:opacity-0"
+            aria-label="Next"
+          >
+            <ChevronRight size={16} strokeWidth={1.5} />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const COVERFLOW_CARD_W = 260;
 const COVERFLOW_CARD_H = 420;
 const SIDE_SCALE_1 = 0.82;
@@ -560,6 +663,9 @@ export default function Home() {
         viewAllHref="/category/lehenga"
         items={LEHENGA_ITEMS}
       />
+
+      {/* Top Collection slider */}
+      <TopCollectionSlider />
 
       {/* Full-width Promo Banner */}
       <section className="w-full">
