@@ -152,7 +152,7 @@ export default function Home() {
             {[
               { file: "icon1.svg?v=1755609266",        label: "24 Hour Dispatch" },
               { file: "Easy_Returns.svg",             label: "Easy Returns" },
-              { file: "Shipping_Box.svg",             label: "Free Shipping* Over ₹3000" },
+              { file: "Global.svg?v=1755608503",       label: "Free Shipping* Over ₹3000" },
               { file: "Stiching.svg?v=1755608731",    label: "KALKI Express" },
               { file: "Customize.svg",                label: "Custom Fitting" },
               { file: "Icons-1_20d3010f-5e9c-4531-9ea6-e9afe2a99c29.svg?v=1755611727", label: "New Styles Daily" },
