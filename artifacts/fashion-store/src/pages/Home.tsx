@@ -539,6 +539,162 @@ const CUSTOMER_STORIES = [
   },
 ];
 
+const STORES = [
+  { name: "KALKI Jaipur", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/jaipur-store.jpg", href: "#" },
+  { name: "KALKI Chattarpur Delhi", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/chattarpur-store.jpg", href: "#" },
+  { name: "KALKI Chennai", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/chennai-store.jpg", href: "#" },
+  { name: "KALKI Ludhiana", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/ludhiana-store.jpg", href: "#" },
+  { name: "KALKI Mumbai Kala Ghoda", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/kala-ghoda-store.jpg", href: "#" },
+  { name: "KALKI Delhi South Ex 2", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/south-ex-store.jpg", href: "#" },
+  { name: "KALKI Mumbai", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/mumbai-store.jpg", href: "#" },
+  { name: "KALKI Ahmedabad", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/ahmedabad-store.jpg", href: "#" },
+  { name: "KALKI Hyderabad", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/hyderabad-store.jpg", href: "#" },
+  { name: "KALKI Pune", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/pune-store.jpg", href: "#" },
+];
+
+const STORE_FALLBACKS = [
+  "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&q=80",
+  "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=80",
+  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80",
+  "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=600&q=80",
+  "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600&q=80",
+  "https://images.unsplash.com/photo-1562751362-404243064400?w=600&q=80",
+  "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=600&q=80",
+  "https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=600&q=80",
+  "https://images.unsplash.com/photo-1526178613552-2b45c6c302f0?w=600&q=80",
+  "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80",
+];
+
+function VisitStoresSection() {
+  const perPage = 8;
+  const [page, setPage] = useState(0);
+  const totalPages = Math.ceil(STORES.length / perPage);
+  const visible = STORES.slice(page * perPage, page * perPage + perPage);
+
+  return (
+    <section className="bg-white py-10">
+      <div className="max-w-[1200px] mx-auto px-4">
+        <h2
+          className="text-center text-[20px] font-normal text-gray-800 mb-6"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Visit our Stores
+        </h2>
+        <div className="relative">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: 12,
+            }}
+          >
+            {visible.map((store, i) => (
+              <a
+                key={store.name}
+                href={store.href}
+                style={{ textDecoration: "none", display: "block", position: "relative", overflow: "hidden", borderRadius: 4 }}
+              >
+                <img
+                  src={store.img}
+                  alt={store.name}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = STORE_FALLBACKS[(page * perPage + i) % STORE_FALLBACKS.length]; }}
+                  style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }}
+                  loading="lazy"
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    background: "linear-gradient(transparent, rgba(0,0,0,0.55))",
+                    padding: "32px 12px 12px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: 8,
+                  }}
+                >
+                  <span style={{ color: "#fff", fontSize: 13, fontWeight: 600, textAlign: "center", letterSpacing: "0.03em" }}>
+                    {store.name}
+                  </span>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      border: "1px solid #fff",
+                      color: "#fff",
+                      fontSize: 10,
+                      fontWeight: 600,
+                      letterSpacing: "0.12em",
+                      padding: "4px 14px",
+                      background: "rgba(255,255,255,0.15)",
+                      cursor: "pointer",
+                    }}
+                  >
+                    VISIT STORE
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Right arrow */}
+          {page < totalPages - 1 && (
+            <button
+              onClick={() => setPage((p) => p + 1)}
+              aria-label="Next stores"
+              style={{
+                position: "absolute",
+                right: -18,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                border: "1px solid #ddd",
+                background: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                zIndex: 10,
+              }}
+            >
+              <ChevronRight size={18} strokeWidth={1.5} color="#555" />
+            </button>
+          )}
+          {page > 0 && (
+            <button
+              onClick={() => setPage((p) => p - 1)}
+              aria-label="Previous stores"
+              style={{
+                position: "absolute",
+                left: -18,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                border: "1px solid #ddd",
+                background: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                zIndex: 10,
+              }}
+            >
+              <ChevronLeft size={18} strokeWidth={1.5} color="#555" />
+            </button>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CustomerStoriesSlider() {
   const [page, setPage] = useState(0);
   const perPage = 2;
@@ -821,19 +977,8 @@ export default function Home() {
       {/* Top Collection slider */}
       <TopCollectionSlider />
 
-      {/* Full-width Promo Banner */}
-      <section className="w-full">
-        <a href="/category/sarees">
-          <img
-            src="https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-1438,c-at_max/cdn/shop/files/1438x389-india-desk-01-01.jpg?v=1781350441"
-            alt="Shop the Sale with a Personal Stylist via 24x7 Video call"
-            className="w-full object-cover block"
-            loading="lazy"
-            width={1438}
-            height={389}
-          />
-        </a>
-      </section>
+      {/* Visit our Stores */}
+      <VisitStoresSection />
 
       {/* Customer Stories */}
       <CustomerStoriesSlider />
