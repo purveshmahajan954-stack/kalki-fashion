@@ -863,33 +863,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="bg-secondary/40 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <p className="text-xs text-muted-foreground tracking-widest uppercase mb-3" style={{ letterSpacing: "0.2em" }}>Curated</p>
-              <h2 className="font-serif text-3xl sm:text-4xl text-foreground">Featured Pieces</h2>
-            </div>
-            <Link href="/category/sarees" className="flex items-center gap-2 text-sm text-primary hover:gap-3 transition-all">
-              View All <ArrowRight size={14} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {featured?.map((product) => (
-              <ProductCard key={product.id} product={product as any} />
-            ))}
-            {!featured && Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="animate-pulse">
-                <div className="aspect-[3/4] bg-muted rounded" />
-                <div className="mt-3 h-4 bg-muted rounded w-3/4" />
-                <div className="mt-2 h-3 bg-muted rounded w-1/2" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Banner Strip */}
       <section className="bg-primary text-primary-foreground py-5">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
