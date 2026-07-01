@@ -101,14 +101,19 @@ function TrendingCard({ img, name, slug, video }: { img: string; name: string; s
         style={{ opacity: hovered && video ? 0 : 1 }}
         loading="lazy"
       />
-      {video && hovered && (
+      {video && (
         <iframe
-          src={`${video}?background=%23ffffff&autoplay=true&loop=true&mute=true&controls=false&tr=w-500`}
-          title={name}
-          className="absolute inset-0 w-full h-full"
-          style={{ border: "none" }}
-          allow="autoplay"
+          data-original-src={video}
+          src={hovered ? `${video}?background=%23ffffff&autoplay=true&loop=true&mute=true&controls=false&tr=w-500` : undefined}
+          title={`Video for ${name}`}
+          width="100%"
+          height="100%"
+          frameBorder="0"
           loading="lazy"
+          allow="autoplay"
+          allowFullScreen={false}
+          className="absolute inset-0 w-full h-full"
+          style={{ border: "none", opacity: hovered ? 1 : 0, transition: "opacity 0.3s" }}
         />
       )}
       {/* product-video-info overlay */}
