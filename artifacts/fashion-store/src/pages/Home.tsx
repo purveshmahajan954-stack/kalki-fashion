@@ -103,17 +103,9 @@ function TrendingSlider() {
 
 function TrendingCard({ img, name, slug, video }: { img: string; name: string; slug: string; video: string | null }) {
   return (
-    <div className="product-video-card flex-shrink-0" style={{ width: CARD_W }}>
-      <div className="product-video-wrapper relative overflow-hidden" style={{ height: 425 }}>
-        <img
-          src={img}
-          alt={name}
-          width=""
-          height=""
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ transition: "opacity 0.35s" }}
-        />
+    <div className="product-video-card">
+      <div className="product-video-wrapper">
+        <img src={img} alt={name} width="" height="" loading="lazy" />
         {video && (
           <iframe
             data-original-src={video}
@@ -125,24 +117,12 @@ function TrendingCard({ img, name, slug, video }: { img: string; name: string; s
             loading="lazy"
             allow="autoplay"
             allowFullScreen={false}
-            className="absolute inset-0 w-full h-full"
-            style={{ border: "none" }}
           />
         )}
       </div>
-      {/* product-video-info */}
-      <div className="product-video-info px-1 pt-2 pb-1">
-        <h3 className="text-gray-800 text-[13px] font-medium leading-snug mb-1 line-clamp-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
-          {name}
-        </h3>
-        <a
-          href={`/products/${slug}`}
-          className="inline-block text-[12px] font-semibold tracking-[0.05em] text-gray-700 underline underline-offset-2 hover:text-black transition-colors"
-          style={{ fontFamily: "'Poppins', sans-serif" }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          View
-        </a>
+      <div className="product-video-info">
+        <h3>{name}</h3>
+        <a href={`/products/${slug}`}>View</a>
       </div>
     </div>
   );

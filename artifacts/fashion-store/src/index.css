@@ -295,3 +295,74 @@
     inset: -1px;
   }
 }
+
+/* ── Trending video slider (Kalki-matching) ─────────────────── */
+.product-video-card {
+  flex-shrink: 0;
+  width: 342px;
+}
+
+.product-video-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 425px;
+}
+
+.product-video-wrapper img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.35s ease;
+  z-index: 1;
+}
+
+.product-video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.product-video-wrapper:hover img {
+  opacity: 0;
+}
+
+.product-video-wrapper:hover iframe {
+  opacity: 1;
+}
+
+.product-video-info {
+  padding: 8px 4px 4px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.product-video-info h3 {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-video-info a {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  letter-spacing: 0.04em;
+}
+
+.product-video-info a:hover {
+  color: #000;
+}
