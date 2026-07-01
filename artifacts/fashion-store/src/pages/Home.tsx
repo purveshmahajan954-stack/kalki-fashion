@@ -154,7 +154,7 @@ export default function Home() {
               { file: "Easy_Returns.svg",             label: "Easy Returns" },
               { file: "Global.svg?v=1755608503",       label: "Free Shipping* Over ₹3000" },
               { file: "Stiching.svg?v=1755608731",    label: "KALKI Express" },
-              { file: "Customize.svg",                label: "Custom Fitting" },
+              { file: "icon_5.svg?v=1755609266",       label: "Custom Fitting" },
               { file: "Icons-1_20d3010f-5e9c-4531-9ea6-e9afe2a99c29.svg?v=1755611727", label: "New Styles Daily" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col items-center gap-1 flex-1 min-w-[80px]">
