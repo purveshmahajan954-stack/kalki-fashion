@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
@@ -43,7 +43,20 @@ const OFFSET_PX_2 = 390;
 
 function TrendingSlider() {
   const [active, setActive] = useState(0);
+  const [inView, setInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const len = TRENDING_ITEMS.length;
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   function prev() { setActive((i) => (i - 1 + len) % len); }
   function next() { setActive((i) => (i + 1) % len); }
@@ -87,6 +100,7 @@ function TrendingSlider() {
 
   return (
     <section
+      ref={sectionRef}
       style={{
         background: "linear-gradient(135deg, #c9a882 0%, #b8916a 50%, #c9a882 100%)",
         fontFamily: "'Poppins', sans-serif",
@@ -151,9 +165,26 @@ function TrendingSlider() {
               <img
                 src={item.img}
                 alt={item.name}
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", position: "absolute", inset: 0 }}
                 loading="lazy"
               />
+              {isCenter && inView && item.video && (
+                <iframe
+                  key={`${item.slug}-video`}
+                  src={`${item.video}?background=%23000000&autoplay=true&loop=true&mute=true&controls=false&tr=w-500`}
+                  title={item.name}
+                  allow="autoplay"
+                  frameBorder="0"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    border: "none",
+                  }}
+                />
+              )}
               {isCenter && (
                 <div
                   style={{
