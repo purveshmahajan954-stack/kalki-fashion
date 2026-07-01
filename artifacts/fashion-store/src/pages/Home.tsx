@@ -361,7 +361,7 @@ export default function Home() {
               title: "Styles Under ₹999",
               badge: "ON SALE",
               badgeStyle: "bg-[#d10024] text-white",
-              href: "/category/sarees",
+              href: "/collections/style-under-usd99",
             },
             {
               img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=600&q=80",
