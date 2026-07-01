@@ -102,14 +102,24 @@ function TrendingSlider() {
 }
 
 function TrendingCard({ img, name, slug, video }: { img: string; name: string; slug: string; video: string | null }) {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const loaded = useRef(false);
+
+  function handleMouseEnter() {
+    if (video && iframeRef.current && !loaded.current) {
+      iframeRef.current.src = `${video}?background=%23ffffff&autoplay=true&loop=true&mute=true&controls=false&tr=w-500`;
+      loaded.current = true;
+    }
+  }
+
   return (
     <div className="product-video-card">
-      <div className="product-video-wrapper">
+      <div className="product-video-wrapper" onMouseEnter={handleMouseEnter}>
         <img src={img} alt={name} width="" height="" loading="lazy" />
         {video && (
           <iframe
+            ref={iframeRef}
             data-original-src={video}
-            src={`${video}?background=%23ffffff&autoplay=true&loop=true&mute=true&controls=false&tr=w-500`}
             title={`Video for ${name}`}
             width="100%"
             height="425"
