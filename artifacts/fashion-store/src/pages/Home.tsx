@@ -508,48 +508,50 @@ const HERO_SLIDES = [
 
 const CUSTOMER_STORIES = [
   {
-    img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=300&q=80",
+    img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-270,c-at_max/cdn/shop/files/Shraddha_Patel_b63f8785-23af-494b-8d80-27f58d9a6f34.jpg",
     text: "They delivered my outfit on time. Outfit looked great, fitting and everything worked out perfect for me. I would definitely recommend others.",
     name: "Shradha Patel",
     location: "Michigan, USA",
   },
   {
-    img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&q=80",
+    img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-270,c-at_max/cdn/shop/files/Nandini_Kothari_ea2f1795-f4f9-4d33-9993-912e81d93f19.jpg",
     text: "\"I wore two stunning outfits, each with its own unique vibe and style. Every time I wear them, I feel like the main character! Both outfits were incredibly comfortable and well-designed.\"",
     name: "Nandini Kothari",
     location: "Mandsaur, Madhya Pradesh",
   },
   {
-    img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=300&q=80",
+    img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-270,c-at_max/cdn/shop/files/Ruchi_Rawat_b0426363-e834-4cd1-b461-2d8a9909b47e.jpg",
     text: "The lehenga I ordered for my sister's wedding was breathtaking. The embroidery detailing was exquisite and it fit perfectly. Received endless compliments!",
-    name: "Priya Malhotra",
+    name: "Ruchi Rawat",
     location: "Dubai, UAE",
   },
   {
-    img: "https://images.unsplash.com/photo-1591130222369-26a7c1c29d35?w=300&q=80",
+    img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-270,c-at_max/cdn/shop/files/Deesha_Kumbham_100584e4-0ed6-4a26-af00-827d53b7965b.jpg",
     text: "Absolutely love the quality of fabric and craftsmanship. The saree draped beautifully and the blouse fit was perfect. Will definitely order again!",
-    name: "Ananya Sharma",
+    name: "Deesha Kumbham",
     location: "Toronto, Canada",
   },
   {
-    img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&q=80",
+    img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-270,c-at_max/cdn/shop/files/krishna.jpg",
     text: "Outstanding service and the kurta set is gorgeous. The packaging was beautiful too. I gifted it to my mother and she absolutely loved it.",
-    name: "Meera Reddy",
+    name: "Krishna",
     location: "Hyderabad, India",
   },
 ];
 
 const STORES = [
-  { name: "KALKI Jaipur", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/jaipur-store.jpg", href: "#" },
-  { name: "KALKI Chattarpur Delhi", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/chattarpur-store.jpg", href: "#" },
-  { name: "KALKI Chennai", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/chennai-store.jpg", href: "#" },
-  { name: "KALKI Ludhiana", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/ludhiana-store.jpg", href: "#" },
-  { name: "KALKI Mumbai Kala Ghoda", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/kala-ghoda-store.jpg", href: "#" },
-  { name: "KALKI Delhi South Ex 2", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/south-ex-store.jpg", href: "#" },
-  { name: "KALKI Mumbai", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/mumbai-store.jpg", href: "#" },
-  { name: "KALKI Ahmedabad", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/ahmedabad-store.jpg", href: "#" },
-  { name: "KALKI Hyderabad", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/hyderabad-store.jpg", href: "#" },
-  { name: "KALKI Pune", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-600,c-at_max/cdn/shop/files/pune-store.jpg", href: "#" },
+  { name: "KALKI Jaipur", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365.jpg", href: "#" },
+  { name: "KALKI Chattarpur Delhi", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-chattarpur-04-02-26-w.jpg", href: "#" },
+  { name: "KALKI Chennai", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-chennai-02-01-26-without-contant.jpg", href: "#" },
+  { name: "KALKI Ludhiana", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-Ludhiana-13-11-25-without_content.jpg", href: "#" },
+  { name: "KALKI Mumbai Kala Ghoda", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-kala-ghoda-04-10-25-without-text.jpg", href: "#" },
+  { name: "KALKI Delhi Pitampura", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-pitampura-20-1-25.jpg", href: "#" },
+  { name: "KALKI Mumbai", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-mumbai-07-05-25.jpg", href: "#" },
+  { name: "KALKI Ahmedabad", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-ahemdabad-20-1-25.jpg", href: "#" },
+  { name: "KALKI Hyderabad", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-hydrabad-20-1-25_e7c4557b-864e-49f6-a92b-9710a022bfa4.jpg", href: "#" },
+  { name: "KALKI Bengaluru", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-bengaluru-20-1-25_4887897e-245e-4a93-8774-af10c56ba04f.jpg", href: "#" },
+  { name: "KALKI Indore", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-indore-20-1-25.jpg", href: "#" },
+  { name: "KALKI Surat", img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-345,c-at_max/cdn/shop/files/345x365-surat-20-1-25.jpg", href: "#" },
 ];
 
 const STORE_FALLBACKS = [
@@ -564,6 +566,255 @@ const STORE_FALLBACKS = [
   "https://images.unsplash.com/photo-1526178613552-2b45c6c302f0?w=600&q=80",
   "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80",
 ];
+
+const NEW_ARRIVALS_SALE = [
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/ivory-cotton-kurta-set-with-hand-block-print-sg399832-1_e5b2296b-764d-4e5e-a766-a92e1f8c6c6a.jpg", name: "Yellow Hand Block Printed Anarkali With Dupatta", price: "$55", original: "$69" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/LightBeigeSilkEmbroideredKurta-sg323624-6_6.jpg", name: "White Printed Anarkali With Beaded Hand Work", price: "$55", original: "$69" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/black-embroidered-silk-kurta-jacket-set-sg376077-1_46d1054c-2b4b-4a45-b282-709cd0a56eac.jpg", name: "Black Embroidered Kurta Set With Dupatta", price: "$594", original: "$742" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/beige-chanderi-silk-embroidered-kurta-set-sg326040-1_8a49b180-c945-44a6-bb14-d857261b2bba.jpg", name: "White Embroidered Kurta Jacket Set", price: "$159", original: "$199" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/coral-red-silk-woven-saree-with-zari-work-sg350481-1.jpg", name: "Rani Pink Ombre Hand TieDye Bandhani Saree", price: "$182", original: "$227" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/blue-chanderi-kurta-set-with-gotta-and-moti-work-sg400620-1_bec3a222-221b-46fe-9a15-fdcac3bb70c3.jpg", name: "Blue Chanderi Kurta Set With Gotta And Moti Work", price: "$88", original: "$110" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/yellow-chanderi-kurta-set-with-gotta-patti-work-sg400613-1_da6f91fd-2e48-4b3b-9dfe-8b1275535751.jpg", name: "Yellow Chanderi Kurta Set With Gotta Patti Work", price: "$88", original: "$110" },
+  { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/purple-silk-embroidered-kurta-and-skirt-set-sg359436-1_d6afe8b8-48e4-4e7c-8e39-3e70a11098f8.jpg", name: "Purple Silk Embroidered Kurta And Skirt Set", price: "$209", original: "$279" },
+];
+
+function PersonalStylistBanner() {
+  return (
+    <section className="w-full relative overflow-hidden" style={{ minHeight: 280 }}>
+      <img
+        src="https://global-kalkifashion.myshopify.com/cdn/shop/files/video_call_c5562c8e-7c27-4e4f-bdce-8b4c6df3e6e9.jpg?v=1755614356"
+        alt="Shop The Sale With A Personal Stylist Via 24x7 Video Call"
+        className="w-full h-full object-cover absolute inset-0"
+        style={{ minHeight: 280 }}
+        loading="lazy"
+      />
+      <div
+        className="relative z-10 flex flex-col items-center justify-center text-center py-16 px-6"
+        style={{ minHeight: 280 }}
+      >
+        <h2
+          style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 8, textShadow: "0 1px 4px rgba(0,0,0,0.35)" }}
+        >
+          Shop The Sale With A Personal Stylist<br />Via 24x7 Video Call
+        </h2>
+        <p style={{ fontSize: 13, color: "rgba(255,255,255,0.9)", marginBottom: 20, textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
+          Our Stylists On Call Can Speak: English, Hindi, Gujarati &amp; Marathi
+        </p>
+        <a
+          href="#"
+          style={{
+            display: "inline-block",
+            background: "#fff",
+            color: "#111",
+            fontWeight: 600,
+            letterSpacing: "0.12em",
+            fontSize: 13,
+            padding: "10px 36px",
+            border: "1px solid #fff",
+            textDecoration: "none",
+          }}
+        >
+          START CALL NOW
+        </a>
+      </div>
+    </section>
+  );
+}
+
+function NewArrivalsOnSale() {
+  const [offset, setOffset] = useState(0);
+  const visible = 5;
+  const canPrev = offset > 0;
+  const canNext = offset + visible < NEW_ARRIVALS_SALE.length;
+
+  return (
+    <section className="bg-white py-10">
+      <div className="max-w-[1200px] mx-auto px-4">
+        <h2
+          className="text-center text-[20px] font-normal text-gray-800 mb-6"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          New Arrivals On Sale
+        </h2>
+        <div className="relative">
+          <div style={{ display: "grid", gridTemplateColumns: `repeat(${visible}, 1fr)`, gap: 12, overflow: "hidden" }}>
+            {NEW_ARRIVALS_SALE.slice(offset, offset + visible).map((item) => (
+              <a key={item.name} href="#" style={{ textDecoration: "none", color: "inherit" }}>
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  style={{ width: "100%", aspectRatio: "3/4", objectFit: "cover", display: "block" }}
+                  loading="lazy"
+                />
+                <div style={{ padding: "8px 2px 0" }}>
+                  <p style={{ fontSize: 12, color: "#222", lineHeight: 1.4, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: 4 }}>
+                    {item.name}
+                  </p>
+                  <p style={{ fontSize: 12 }}>
+                    <span style={{ fontWeight: 600, color: "#111", marginRight: 6 }}>{item.price}</span>
+                    <span style={{ color: "#999", textDecoration: "line-through", marginRight: 6 }}>{item.original}</span>
+                    <span style={{ color: "#c00", fontWeight: 600 }}>20% OFF</span>
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+          {canPrev && (
+            <button onClick={() => setOffset((o) => Math.max(0, o - 1))} aria-label="Previous" style={{ position: "absolute", left: -20, top: "40%", transform: "translateY(-50%)", width: 36, height: 36, borderRadius: "50%", border: "1px solid #ddd", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", zIndex: 10 }}>
+              <ChevronLeft size={18} strokeWidth={1.5} color="#555" />
+            </button>
+          )}
+          {canNext && (
+            <button onClick={() => setOffset((o) => o + 1)} aria-label="Next" style={{ position: "absolute", right: -20, top: "40%", transform: "translateY(-50%)", width: 36, height: 36, borderRadius: "50%", border: "1px solid #ddd", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", zIndex: 10 }}>
+              <ChevronRight size={18} strokeWidth={1.5} color="#555" />
+            </button>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function EditorsPicks() {
+  return (
+    <section className="bg-white py-10">
+      <div className="max-w-[1200px] mx-auto px-4">
+        <h2
+          className="text-center text-[20px] font-normal text-gray-800 mb-6"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          Editor's Picks
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          {[
+            {
+              img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-750,c-at_max/cdn/shop/files/1-editors-picks-blouse-420x568-desk-05-02-26.jpg?v=1781352140",
+              title: "Blouses Upto 30% Off*",
+              sub: "Statement picks for Every Occasion",
+            },
+            {
+              img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-750,c-at_max/cdn/shop/files/1-dress-material-desk-13-06-26-01-india.jpg?v=1781344821",
+              title: "Dress Material Edit",
+              sub: "UPTO 25% OFF*\nUnstitched Elegance, Endless Possibilities",
+            },
+          ].map((pick) => (
+            <div key={pick.title} style={{ position: "relative", overflow: "hidden" }}>
+              <img
+                src={pick.img}
+                alt={pick.title}
+                style={{ width: "100%", display: "block", objectFit: "cover" }}
+                loading="lazy"
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  padding: 24,
+                  gap: 12,
+                }}
+              >
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#111", fontWeight: 600, lineHeight: 1.3 }}>
+                  {pick.title}
+                </h3>
+                {pick.sub.split("\n").map((line, i) => (
+                  <p key={i} style={{ fontSize: 13, color: "#333", lineHeight: 1.5 }}>{line}</p>
+                ))}
+                <a
+                  href="#"
+                  style={{
+                    marginTop: 8,
+                    display: "inline-block",
+                    background: "#111",
+                    color: "#fff",
+                    fontWeight: 600,
+                    letterSpacing: "0.1em",
+                    fontSize: 12,
+                    padding: "9px 28px",
+                    textDecoration: "none",
+                  }}
+                >
+                  SHOP NOW
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SareeEdit() {
+  return (
+    <section className="bg-[#fdf9f5] py-10">
+      <div className="max-w-[1200px] mx-auto px-4">
+        <h2
+          className="text-center text-[20px] font-normal text-gray-800 mb-6"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          The Saree Edit
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, alignItems: "stretch" }}>
+          {/* Left: collage — 1 tall + 2 stacked */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 4, height: 460 }}>
+            <img
+              src="https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/saree-banner-2-180x119-mobile-27-1-26_2.jpg"
+              alt="Saree 1"
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              loading="lazy"
+            />
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              <img
+                src="https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-200,c-at_max/cdn/shop/files/saree-banner-3-200x281-deaktop-27-1-26_2.jpg"
+                alt="Saree 2"
+                style={{ width: "100%", flex: 1, objectFit: "cover", display: "block" }}
+                loading="lazy"
+              />
+              <img
+                src="https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-200,c-at_max/cdn/shop/files/saree-banner-4-200x282-deaktop-27-1-26_2.jpg"
+                alt="Saree 3"
+                style={{ width: "100%", flex: 1, objectFit: "cover", display: "block" }}
+                loading="lazy"
+              />
+            </div>
+          </div>
+          {/* Right: text content */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 32px", textAlign: "center" }}>
+            <p style={{ fontSize: 13, letterSpacing: "0.15em", color: "#555", marginBottom: 4 }}>— FLAT —</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 52, fontWeight: 700, lineHeight: 1, color: "#111", marginBottom: 4 }}>
+              25–50<span style={{ fontSize: 28 }}>%</span><span style={{ fontSize: 24 }}> off</span>
+            </p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, color: "#8B1A1A", letterSpacing: "0.04em", marginBottom: 20 }}>
+              INSTANT SAREE™
+            </p>
+            <a
+              href="#"
+              style={{
+                display: "inline-block",
+                background: "#111",
+                color: "#fff",
+                fontWeight: 600,
+                letterSpacing: "0.12em",
+                fontSize: 12,
+                padding: "10px 28px",
+                textDecoration: "none",
+                marginBottom: 16,
+              }}
+            >
+              PRE-DRAPE NOW
+            </a>
+            <p style={{ fontSize: 12, color: "#777" }}>Pre-drape any saree instantly, unlock SALE offers today</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function VisitStoresSection() {
   const perPage = 8;
@@ -976,6 +1227,18 @@ export default function Home() {
 
       {/* Top Collection slider */}
       <TopCollectionSlider />
+
+      {/* Personal Stylist Banner */}
+      <PersonalStylistBanner />
+
+      {/* New Arrivals On Sale */}
+      <NewArrivalsOnSale />
+
+      {/* Editor's Picks */}
+      <EditorsPicks />
+
+      {/* The Saree Edit */}
+      <SareeEdit />
 
       {/* Visit our Stores */}
       <VisitStoresSection />
