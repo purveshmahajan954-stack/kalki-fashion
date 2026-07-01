@@ -3,8 +3,6 @@ import { Link } from "wouter";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ProductCard from "@/components/ProductCard";
-import { useGetFeaturedProducts, useGetNewArrivals, useListCategories } from "@workspace/api-client-react";
 
 const TRENDING_ITEMS = [
   { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/green-bandhani-banarasi-dhoti-set-with-gotta-work-sg400298-1_acde47b5-33ae-48fe-8e30-2fce484876f9.jpg?v=1780743070", name: "Green Printed Cotton Kurta Set And Dupatta", slug: "green-printed-cotton-kurta-set-and-dupatta", video: "https://imagekit.io/player/embed/4sjmoqtje/SG400298.mp4" },
@@ -1075,9 +1073,6 @@ function CustomerStoriesSlider() {
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
-  const { data: featured } = useGetFeaturedProducts();
-  const { data: newArrivals } = useGetNewArrivals();
-  const { data: categories } = useListCategories();
 
   useEffect(() => {
     const interval = setInterval(() => {
