@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
@@ -34,107 +34,201 @@ const TRENDING_ITEMS = [
   { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/grey-tissue-silk-woven-saree-with-zig-zag-motif-and-zari-border-sg351912-1.jpg?v=1762017437", name: "Grey Tissue Silk Woven Saree With Zig Zag Motif And Zari Border", slug: "grey-tissue-silk-woven-saree-with-zig-zag-motif-and-zari-border", video: "https://imagekit.io/player/embed/4sjmoqtje/SG351912.mp4" },
 ];
 
-const CARD_W = 342;
-const CARD_GAP = 12;
+const COVERFLOW_CARD_W = 260;
+const COVERFLOW_CARD_H = 420;
+const SIDE_SCALE_1 = 0.82;
+const SIDE_SCALE_2 = 0.67;
+const OFFSET_PX_1 = 215;
+const OFFSET_PX_2 = 390;
 
 function TrendingSlider() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(true);
+  const [active, setActive] = useState(0);
+  const len = TRENDING_ITEMS.length;
 
-  function updateButtons() {
-    const el = trackRef.current;
-    if (!el) return;
-    setCanPrev(el.scrollLeft > 4);
-    setCanNext(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
-  }
+  function prev() { setActive((i) => (i - 1 + len) % len); }
+  function next() { setActive((i) => (i + 1) % len); }
 
-  function slide(dir: 1 | -1) {
-    const el = trackRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * (CARD_W + CARD_GAP) * 3, behavior: "smooth" });
+  function getStyle(offset: number): React.CSSProperties {
+    const absOff = Math.abs(offset);
+    let scale = 1;
+    let tx = 0;
+    let zIndex = 1;
+    let opacity = 1;
+
+    if (absOff === 0) {
+      scale = 1; tx = 0; zIndex = 10; opacity = 1;
+    } else if (absOff === 1) {
+      scale = SIDE_SCALE_1; tx = offset > 0 ? OFFSET_PX_1 : -OFFSET_PX_1; zIndex = 7; opacity = 0.92;
+    } else if (absOff === 2) {
+      scale = SIDE_SCALE_2; tx = offset > 0 ? OFFSET_PX_2 : -OFFSET_PX_2; zIndex = 4; opacity = 0.8;
+    } else {
+      return { display: "none" };
+    }
+
+    return {
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      width: COVERFLOW_CARD_W,
+      height: COVERFLOW_CARD_H,
+      transform: `translate(calc(-50% + ${tx}px), -50%) scale(${scale})`,
+      zIndex,
+      opacity,
+      transition: "all 0.42s cubic-bezier(0.25,0.46,0.45,0.94)",
+      borderRadius: 8,
+      overflow: "hidden",
+      boxShadow: absOff === 0
+        ? "0 20px 50px rgba(0,0,0,0.35)"
+        : "0 6px 20px rgba(0,0,0,0.2)",
+      cursor: absOff !== 0 ? "pointer" : "default",
+      flexShrink: 0,
+    };
   }
 
   return (
-    <section className="bg-white py-8 relative" style={{ fontFamily: "'Poppins', sans-serif" }}>
-      <div className="max-w-[1400px] mx-auto px-6">
-        <h2 className="text-center text-[18px] font-semibold text-gray-800 mb-5 tracking-wide">
-          Trending Styles On SALE
-        </h2>
-        <div className="relative">
-          {/* Prev button */}
-          <button
-            onClick={() => slide(-1)}
-            disabled={!canPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-9 h-9 bg-white border border-gray-300 shadow flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-0"
-            aria-label="Previous"
-          >
-            <ChevronLeft size={18} strokeWidth={1.5} />
-          </button>
+    <section
+      style={{
+        background: "linear-gradient(135deg, #c9a882 0%, #b8916a 50%, #c9a882 100%)",
+        fontFamily: "'Poppins', sans-serif",
+        padding: "36px 0 40px",
+      }}
+    >
+      <h2
+        style={{
+          textAlign: "center",
+          fontSize: 20,
+          fontWeight: 400,
+          color: "#fff",
+          letterSpacing: "0.04em",
+          marginBottom: 28,
+          fontFamily: "'Playfair Display', serif",
+        }}
+      >
+        Trending Styles On Sale
+      </h2>
 
-          {/* Scrollable track */}
-          <div
-            ref={trackRef}
-            onScroll={updateButtons}
-            className="flex overflow-x-auto"
-            style={{ gap: CARD_GAP, scrollbarWidth: "none", msOverflowStyle: "none", scrollSnapType: "x mandatory" }}
-          >
-            {TRENDING_ITEMS.map((item) => (
-              <div key={item.slug} style={{ scrollSnapAlign: "start", flexShrink: 0 }}>
-                <TrendingCard {...item} />
-              </div>
-            ))}
-          </div>
+      <div style={{ position: "relative", height: COVERFLOW_CARD_H + 40, overflow: "hidden" }}>
+        {/* Arrow left */}
+        <button
+          onClick={prev}
+          aria-label="Previous"
+          style={{
+            position: "absolute",
+            left: "calc(50% - 270px)",
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 20,
+            width: 38,
+            height: 38,
+            borderRadius: "50%",
+            border: "1.5px solid rgba(255,255,255,0.7)",
+            background: "rgba(255,255,255,0.18)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            color: "#fff",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <ChevronLeft size={20} strokeWidth={2} />
+        </button>
 
-          {/* Next button */}
-          <button
-            onClick={() => slide(1)}
-            disabled={!canNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-9 h-9 bg-white border border-gray-300 shadow flex items-center justify-center hover:bg-gray-50 transition-colors disabled:opacity-0"
-            aria-label="Next"
-          >
-            <ChevronRight size={18} strokeWidth={1.5} />
-          </button>
-        </div>
+        {/* Cards */}
+        {TRENDING_ITEMS.map((item, i) => {
+          let offset = i - active;
+          if (offset > len / 2) offset -= len;
+          if (offset < -len / 2) offset += len;
+          const style = getStyle(offset);
+          const isCenter = offset === 0;
+
+          return (
+            <div
+              key={item.slug}
+              style={style}
+              onClick={!isCenter ? (offset < 0 ? prev : next) : undefined}
+            >
+              <img
+                src={item.img}
+                alt={item.name}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                loading="lazy"
+              />
+              {isCenter && (
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 70%, transparent 100%)",
+                    padding: "32px 14px 14px",
+                  }}
+                >
+                  <p
+                    style={{
+                      color: "#fff",
+                      fontSize: 12,
+                      fontWeight: 500,
+                      marginBottom: 8,
+                      lineHeight: 1.4,
+                      overflow: "hidden",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                    }}
+                  >
+                    {item.name}
+                  </p>
+                  <a
+                    href={`/product/${item.slug}`}
+                    style={{
+                      display: "inline-block",
+                      color: "#fff",
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: "0.1em",
+                      textDecoration: "none",
+                      borderBottom: "1px solid rgba(255,255,255,0.6)",
+                      paddingBottom: 1,
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    View
+                  </a>
+                </div>
+              )}
+            </div>
+          );
+        })}
+
+        {/* Arrow right */}
+        <button
+          onClick={next}
+          aria-label="Next"
+          style={{
+            position: "absolute",
+            right: "calc(50% - 270px)",
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 20,
+            width: 38,
+            height: 38,
+            borderRadius: "50%",
+            border: "1.5px solid rgba(255,255,255,0.7)",
+            background: "rgba(255,255,255,0.18)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            color: "#fff",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <ChevronRight size={20} strokeWidth={2} />
+        </button>
       </div>
     </section>
-  );
-}
-
-function TrendingCard({ img, name, slug, video }: { img: string; name: string; slug: string; video: string | null }) {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const loaded = useRef(false);
-
-  function handleMouseEnter() {
-    if (video && iframeRef.current && !loaded.current) {
-      iframeRef.current.src = `${video}?background=%23ffffff&autoplay=true&loop=true&mute=true&controls=false&tr=w-500`;
-      loaded.current = true;
-    }
-  }
-
-  return (
-    <div className="product-video-card">
-      <div className="product-video-wrapper" onMouseEnter={handleMouseEnter}>
-        <img src={img} alt={name} width="" height="" loading="lazy" />
-        {video && (
-          <iframe
-            ref={iframeRef}
-            data-original-src={video}
-            title={`Video for ${name}`}
-            width="100%"
-            height="425"
-            frameBorder="0"
-            loading="lazy"
-            allow="autoplay"
-            allowFullScreen={false}
-          />
-        )}
-      </div>
-      <div className="product-video-info">
-        <h3>{name}</h3>
-        <a href={`/products/${slug}`}>View</a>
-      </div>
-    </div>
   );
 }
 
