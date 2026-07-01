@@ -6,6 +6,46 @@ import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { useGetFeaturedProducts, useGetNewArrivals, useListCategories } from "@workspace/api-client-react";
 
+function TrendingCard({ img, name, slug, video }: { img: string; name: string; slug: string; video: string | null }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <a
+      href={`/product/${slug}`}
+      className="relative flex-shrink-0 overflow-hidden block"
+      style={{ width: 240, height: 320 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <img
+        src={img}
+        alt={name}
+        className="w-full h-full object-cover transition-all duration-500"
+        style={{ opacity: hovered && video ? 0 : 1 }}
+        loading="lazy"
+      />
+      {video && hovered && (
+        <iframe
+          src={`${video}?background=%23ffffff&autoplay=true&loop=true&mute=true&controls=false&tr=w-500`}
+          title={name}
+          className="absolute inset-0 w-full h-full"
+          style={{ border: "none" }}
+          allow="autoplay"
+          loading="lazy"
+        />
+      )}
+      {/* Name + View overlay — always visible at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent px-3 py-3">
+        <h3 className="text-white text-[12px] font-medium leading-snug mb-1.5 line-clamp-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
+          {name}
+        </h3>
+        <span className="inline-block text-[10px] font-bold tracking-[0.12em] text-white border border-white px-2.5 py-0.5 hover:bg-white hover:text-black transition-colors">
+          View
+        </span>
+      </div>
+    </a>
+  );
+}
+
 const HERO_SLIDES = [
   {
     id: 1,
@@ -177,6 +217,41 @@ export default function Home() {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Trending Styles On SALE — horizontal video slider */}
+      <section className="bg-white py-8 px-4 sm:px-6">
+        <div className="max-w-[1400px] mx-auto">
+          <h2 className="text-center text-xl font-semibold text-gray-800 mb-6" style={{ fontFamily: "'Poppins', sans-serif" }}>
+            Trending Styles On SALE
+          </h2>
+          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+            {[
+              { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/green-bandhani-banarasi-dhoti-set-with-gotta-work-sg400298-1_acde47b5-33ae-48fe-8e30-2fce484876f9.jpg?v=1780743070", name: "Green Printed Cotton Kurta Set And Dupatta", slug: "green-printed-cotton-kurta-set-and-dupatta", video: "https://imagekit.io/player/embed/4sjmoqtje/SG400298.mp4" },
+              { img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=350&q=80", name: "Red Embroidered Lehenga Choli", slug: "red-embroidered-lehenga-choli", video: null },
+              { img: "https://images.unsplash.com/photo-1591130222369-26a7c1c29d35?w=350&q=80", name: "Blue Silk Anarkali Gown", slug: "blue-silk-anarkali-gown", video: null },
+              { img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=350&q=80", name: "Yellow Banarasi Silk Saree", slug: "yellow-banarasi-silk-saree", video: null },
+              { img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=350&q=80", name: "Pink Chanderi Salwar Kameez", slug: "pink-chanderi-salwar-kameez", video: null },
+              { img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=350&q=80&sig=2", name: "Beige Organza Dupatta Set", slug: "beige-organza-dupatta-set", video: null },
+            ].map((item) => (
+              <TrendingCard key={item.slug} {...item} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Full-width Promo Banner */}
+      <section className="w-full">
+        <a href="/category/sarees">
+          <img
+            src="https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-1438,c-at_max/cdn/shop/files/1438x389-india-desk-01-01.jpg?v=1781350441"
+            alt="Shop the Sale with a Personal Stylist via 24x7 Video call"
+            className="w-full object-cover block"
+            loading="lazy"
+            width={1438}
+            height={389}
+          />
+        </a>
       </section>
 
       {/* Category Grid */}
