@@ -9,12 +9,12 @@ import { useGetFeaturedProducts, useGetNewArrivals, useListCategories } from "@w
 function TrendingCard({ img, name, slug, video }: { img: string; name: string; slug: string; video: string | null }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <a
-      href={`/product/${slug}`}
-      className="relative flex-shrink-0 overflow-hidden block"
+    <div
+      className="relative flex-shrink-0 overflow-hidden cursor-pointer"
       style={{ width: 240, height: 320 }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => { window.location.href = `/product/${slug}`; }}
     >
       <img
         src={img}
@@ -33,16 +33,24 @@ function TrendingCard({ img, name, slug, video }: { img: string; name: string; s
           loading="lazy"
         />
       )}
-      {/* Name + View overlay — always visible at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent px-3 py-3">
-        <h3 className="text-white text-[12px] font-medium leading-snug mb-1.5 line-clamp-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      {/* product-video-info overlay */}
+      <div
+        className="absolute bottom-0 left-0 right-0 px-3 py-2.5"
+        style={{ background: "rgba(0,0,0,0.55)" }}
+      >
+        <h3 className="text-white text-[11px] font-medium leading-snug mb-1 line-clamp-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
           {name}
         </h3>
-        <span className="inline-block text-[10px] font-bold tracking-[0.12em] text-white border border-white px-2.5 py-0.5 hover:bg-white hover:text-black transition-colors">
+        <a
+          href={`/product/${slug}`}
+          className="inline-block text-[10px] font-semibold tracking-[0.1em] text-white underline underline-offset-2 hover:text-gray-200 transition-colors"
+          style={{ fontFamily: "'Poppins', sans-serif" }}
+          onClick={(e) => e.stopPropagation()}
+        >
           View
-        </span>
+        </a>
       </div>
-    </a>
+    </div>
   );
 }
 
