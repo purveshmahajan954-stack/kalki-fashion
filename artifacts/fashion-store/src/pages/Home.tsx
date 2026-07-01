@@ -138,9 +138,9 @@ export default function Home() {
       </section>
 
       {/* USP Feature Strip */}
-      <section className="border-b border-gray-200 bg-white py-4">
+      <section className="border-b border-gray-200 bg-white py-2">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="flex items-center justify-between gap-2 flex-wrap">
+          <div className="flex items-center justify-between gap-1 flex-wrap">
             {[
               { file: "icon1.svg?v=1755609266",        label: "24 Hour Dispatch" },
               { file: "Easy_Returns.svg",             label: "Easy Returns" },
@@ -149,15 +149,15 @@ export default function Home() {
               { file: "Customize.svg",                label: "Custom Fitting" },
               { file: "Icons-1_20d3010f-5e9c-4531-9ea6-e9afe2a99c29.svg?v=1755611727", label: "New Styles Daily" },
             ].map((item) => (
-              <div key={item.label} className="flex flex-col items-center gap-1.5 flex-1 min-w-[80px]">
+              <div key={item.label} className="flex flex-col items-center gap-1 flex-1 min-w-[80px]">
                 <img
                   src={`https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-50,c-at_max/cdn/shop/files/${item.file}`}
                   alt={item.label}
-                  width={40}
-                  height={40}
+                  width={34}
+                  height={34}
                   loading="lazy"
                 />
-                <span className="text-[11px] font-medium text-gray-700 text-center tracking-wide whitespace-nowrap" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                <span className="text-[10px] font-medium text-gray-700 text-center tracking-wide whitespace-nowrap" style={{ fontFamily: "'Poppins', sans-serif" }}>
                   {item.label}
                 </span>
               </div>
