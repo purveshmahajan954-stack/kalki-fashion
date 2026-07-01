@@ -506,11 +506,165 @@ const HERO_SLIDES = [
   },
 ];
 
-const TESTIMONIALS = [
-  { name: "Priya Malhotra", text: "The Banarasi silk saree I ordered was absolutely stunning. The quality exceeded my expectations — I received so many compliments at my cousin's wedding.", rating: 5 },
-  { name: "Ananya Sharma", text: "Elara has the most exquisite collection I've seen online. The bridal lehenga was perfect and arrived beautifully packaged. Will definitely shop again!", rating: 5 },
-  { name: "Meera Reddy", text: "Excellent customer service and authentic fabrics. The embroidery work on my gown was flawless. A truly premium shopping experience.", rating: 5 },
+const CUSTOMER_STORIES = [
+  {
+    img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=300&q=80",
+    text: "They delivered my outfit on time. Outfit looked great, fitting and everything worked out perfect for me. I would definitely recommend others.",
+    name: "Shradha Patel",
+    location: "Michigan, USA",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&q=80",
+    text: "\"I wore two stunning outfits, each with its own unique vibe and style. Every time I wear them, I feel like the main character! Both outfits were incredibly comfortable and well-designed.\"",
+    name: "Nandini Kothari",
+    location: "Mandsaur, Madhya Pradesh",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=300&q=80",
+    text: "The lehenga I ordered for my sister's wedding was breathtaking. The embroidery detailing was exquisite and it fit perfectly. Received endless compliments!",
+    name: "Priya Malhotra",
+    location: "Dubai, UAE",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1591130222369-26a7c1c29d35?w=300&q=80",
+    text: "Absolutely love the quality of fabric and craftsmanship. The saree draped beautifully and the blouse fit was perfect. Will definitely order again!",
+    name: "Ananya Sharma",
+    location: "Toronto, Canada",
+  },
+  {
+    img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&q=80",
+    text: "Outstanding service and the kurta set is gorgeous. The packaging was beautiful too. I gifted it to my mother and she absolutely loved it.",
+    name: "Meera Reddy",
+    location: "Hyderabad, India",
+  },
 ];
+
+function CustomerStoriesSlider() {
+  const [page, setPage] = useState(0);
+  const perPage = 2;
+  const totalPages = Math.ceil(CUSTOMER_STORIES.length / perPage);
+  const visible = CUSTOMER_STORIES.slice(page * perPage, page * perPage + perPage);
+
+  return (
+    <section className="bg-white py-12" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      <div className="max-w-[1200px] mx-auto px-6">
+        <h2 className="text-center text-[20px] font-normal text-gray-800 mb-8" style={{ fontFamily: "'Playfair Display', serif" }}>
+          Customer Stories
+        </h2>
+
+        <div className="relative">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+            {visible.map((story, i) => (
+              <div
+                key={story.name}
+                style={{
+                  display: "flex",
+                  gap: 20,
+                  border: "1px solid #e8e8e8",
+                  borderRadius: 8,
+                  padding: 24,
+                  alignItems: "flex-start",
+                  background: "#fff",
+                }}
+              >
+                <img
+                  src={story.img}
+                  alt={story.name}
+                  style={{ width: 160, height: 200, objectFit: "cover", borderRadius: 4, flexShrink: 0 }}
+                  loading="lazy"
+                />
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
+                  <p style={{ fontSize: 13, color: "#555", lineHeight: 1.7, fontStyle: "italic", marginBottom: 16, textAlign: "center" }}>
+                    {story.text}
+                  </p>
+                  <div style={{ textAlign: "center" }}>
+                    <p style={{ fontSize: 14, fontWeight: 600, color: "#111", marginBottom: 2 }}>{story.name}</p>
+                    <p style={{ fontSize: 12, color: "#888" }}>{story.location}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {/* Fill empty slot if odd number on last page */}
+            {visible.length < perPage && <div />}
+          </div>
+
+          {/* Right arrow */}
+          {page < totalPages - 1 && (
+            <button
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages - 1))}
+              aria-label="Next"
+              style={{
+                position: "absolute",
+                right: -20,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                border: "1px solid #ddd",
+                background: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                zIndex: 10,
+              }}
+            >
+              <ChevronRight size={18} strokeWidth={1.5} color="#555" />
+            </button>
+          )}
+          {page > 0 && (
+            <button
+              onClick={() => setPage((p) => Math.max(p - 1, 0))}
+              aria-label="Previous"
+              style={{
+                position: "absolute",
+                left: -20,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                border: "1px solid #ddd",
+                background: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                zIndex: 10,
+              }}
+            >
+              <ChevronLeft size={18} strokeWidth={1.5} color="#555" />
+            </button>
+          )}
+        </div>
+
+        {/* Dots */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 24 }}>
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setPage(i)}
+              aria-label={`Page ${i + 1}`}
+              style={{
+                width: i === page ? 20 : 8,
+                height: 8,
+                borderRadius: 4,
+                border: "none",
+                background: i === page ? "#333" : "#ccc",
+                cursor: "pointer",
+                padding: 0,
+                transition: "all 0.25s ease",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
@@ -768,28 +922,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="bg-secondary/40 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
-            <p className="text-xs text-muted-foreground tracking-widest uppercase mb-3" style={{ letterSpacing: "0.2em" }}>Stories</p>
-            <h2 className="font-serif text-3xl sm:text-4xl text-foreground">Our Customers Love Us</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="bg-white p-8 border border-border" data-testid={`card-testimonial-${i}`}>
-                <div className="flex mb-4">
-                  {[...Array(t.rating)].map((_, j) => (
-                    <span key={j} className="text-primary text-sm">★</span>
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed italic mb-6">"{t.text}"</p>
-                <p className="text-sm font-semibold text-foreground">{t.name}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Customer Stories */}
+      <CustomerStoriesSlider />
 
       <Footer />
     </div>
