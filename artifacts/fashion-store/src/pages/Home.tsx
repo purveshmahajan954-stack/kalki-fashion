@@ -17,7 +17,7 @@ const TRENDING_ITEMS = [
   { img: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?w=350&q=80&sig=8", name: "Ivory Chikankari Kurta", slug: "ivory-chikankari-kurta", video: null },
 ];
 
-const CARD_W = 244;
+const CARD_W = 342;
 const CARD_GAP = 12;
 
 function TrendingSlider() {
@@ -85,48 +85,42 @@ function TrendingSlider() {
 }
 
 function TrendingCard({ img, name, slug, video }: { img: string; name: string; slug: string; video: string | null }) {
-  const [hovered, setHovered] = useState(false);
   return (
-    <div
-      className="relative flex-shrink-0 overflow-hidden cursor-pointer"
-      style={{ width: 240, height: 320 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={() => { window.location.href = `/product/${slug}`; }}
-    >
-      <img
-        src={img}
-        alt={name}
-        className="w-full h-full object-cover transition-all duration-500"
-        style={{ opacity: hovered && video ? 0 : 1 }}
-        loading="lazy"
-      />
-      {video && (
-        <iframe
-          data-original-src={video}
-          src={hovered ? `${video}?background=%23ffffff&autoplay=true&loop=true&mute=true&controls=false&tr=w-500` : undefined}
-          title={`Video for ${name}`}
-          width="100%"
-          height="100%"
-          frameBorder="0"
+    <div className="product-video-card flex-shrink-0" style={{ width: CARD_W }}>
+      <div className="product-video-wrapper relative overflow-hidden" style={{ height: 425 }}>
+        <img
+          src={img}
+          alt={name}
+          width=""
+          height=""
           loading="lazy"
-          allow="autoplay"
-          allowFullScreen={false}
-          className="absolute inset-0 w-full h-full"
-          style={{ border: "none", opacity: hovered ? 1 : 0, transition: "opacity 0.3s" }}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ transition: "opacity 0.35s" }}
         />
-      )}
-      {/* product-video-info overlay */}
-      <div
-        className="absolute bottom-0 left-0 right-0 px-3 py-2.5"
-        style={{ background: "rgba(0,0,0,0.55)" }}
-      >
-        <h3 className="text-white text-[11px] font-medium leading-snug mb-1 line-clamp-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
+        {video && (
+          <iframe
+            data-original-src={video}
+            src={`${video}?background=%23ffffff&autoplay=true&loop=true&mute=true&controls=false&tr=w-500`}
+            title={`Video for ${name}`}
+            width="100%"
+            height="425"
+            frameBorder="0"
+            loading="lazy"
+            allow="autoplay"
+            allowFullScreen={false}
+            className="absolute inset-0 w-full h-full"
+            style={{ border: "none" }}
+          />
+        )}
+      </div>
+      {/* product-video-info */}
+      <div className="product-video-info px-1 pt-2 pb-1">
+        <h3 className="text-gray-800 text-[13px] font-medium leading-snug mb-1 line-clamp-2" style={{ fontFamily: "'Poppins', sans-serif" }}>
           {name}
         </h3>
         <a
-          href={`/product/${slug}`}
-          className="inline-block text-[10px] font-semibold tracking-[0.1em] text-white underline underline-offset-2 hover:text-gray-200 transition-colors"
+          href={`/products/${slug}`}
+          className="inline-block text-[12px] font-semibold tracking-[0.05em] text-gray-700 underline underline-offset-2 hover:text-black transition-colors"
           style={{ fontFamily: "'Poppins', sans-serif" }}
           onClick={(e) => e.stopPropagation()}
         >
