@@ -835,34 +835,6 @@ export default function Home() {
         </a>
       </section>
 
-      {/* Category Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <div className="text-center mb-12">
-          <p className="text-xs text-muted-foreground tracking-widest uppercase mb-3" style={{ letterSpacing: "0.2em" }}>Explore</p>
-          <h2 className="font-serif text-3xl sm:text-4xl text-foreground">Our Collections</h2>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categories?.map((cat) => (
-            <Link key={cat.slug} href={`/category/${cat.slug}`} data-testid={`link-category-${cat.slug}`}>
-              <div className="group cursor-pointer">
-                <div className="aspect-square bg-secondary overflow-hidden relative">
-                  <img
-                    src={`https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=70&sig=${cat.id}`}
-                    alt={cat.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/25 group-hover:bg-black/40 transition-colors" />
-                  <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
-                    <h3 className="text-white font-serif text-sm sm:text-base">{cat.name}</h3>
-                    <p className="text-white/70 text-xs mt-1">{cat.productCount} pieces</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       {/* New Arrivals */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
         <div className="flex items-end justify-between mb-12">
