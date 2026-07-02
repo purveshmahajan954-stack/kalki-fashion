@@ -577,59 +577,6 @@ const NEW_ARRIVALS_SALE = [
 ];
 
 
-function NewArrivalsOnSale() {
-  const [offset, setOffset] = useState(0);
-  const visible = 5;
-  const canPrev = offset > 0;
-  const canNext = offset + visible < NEW_ARRIVALS_SALE.length;
-
-  return (
-    <section className="bg-white py-10">
-      <div className="max-w-[1200px] mx-auto px-4">
-        <h2
-          className="text-center text-[20px] font-normal text-gray-800 mb-6"
-          style={{ fontFamily: "'Playfair Display', serif" }}
-        >
-          New Arrivals On Sale
-        </h2>
-        <div className="relative">
-          <div style={{ display: "grid", gridTemplateColumns: `repeat(${visible}, 1fr)`, gap: 12, overflow: "hidden" }}>
-            {NEW_ARRIVALS_SALE.slice(offset, offset + visible).map((item) => (
-              <a key={item.name} href="#" style={{ textDecoration: "none", color: "inherit" }}>
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  style={{ width: "100%", aspectRatio: "3/4", objectFit: "cover", display: "block" }}
-                  loading="lazy"
-                />
-                <div style={{ padding: "8px 2px 0" }}>
-                  <p style={{ fontSize: 12, color: "#222", lineHeight: 1.4, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: 4 }}>
-                    {item.name}
-                  </p>
-                  <p style={{ fontSize: 12 }}>
-                    <span style={{ fontWeight: 600, color: "#111", marginRight: 6 }}>{item.price}</span>
-                    <span style={{ color: "#999", textDecoration: "line-through", marginRight: 6 }}>{item.original}</span>
-                    <span style={{ color: "#c00", fontWeight: 600 }}>20% OFF</span>
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-          {canPrev && (
-            <button onClick={() => setOffset((o) => Math.max(0, o - 1))} aria-label="Previous" style={{ position: "absolute", left: -20, top: "40%", transform: "translateY(-50%)", width: 36, height: 36, borderRadius: "50%", border: "1px solid #ddd", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", zIndex: 10 }}>
-              <ChevronLeft size={18} strokeWidth={1.5} color="#555" />
-            </button>
-          )}
-          {canNext && (
-            <button onClick={() => setOffset((o) => o + 1)} aria-label="Next" style={{ position: "absolute", right: -20, top: "40%", transform: "translateY(-50%)", width: 36, height: 36, borderRadius: "50%", border: "1px solid #ddd", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", zIndex: 10 }}>
-              <ChevronRight size={18} strokeWidth={1.5} color="#555" />
-            </button>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function EditorsPicks() {
   return (
@@ -1180,9 +1127,6 @@ export default function Home() {
 
       {/* Top Collection slider */}
       <TopCollectionSlider />
-
-      {/* New Arrivals On Sale */}
-      <NewArrivalsOnSale />
 
       {/* Editor's Picks */}
       <EditorsPicks />
