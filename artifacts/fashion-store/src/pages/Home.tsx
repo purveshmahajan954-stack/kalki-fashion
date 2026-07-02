@@ -601,11 +601,11 @@ function EditorsPicks() {
               sub: "UPTO 25% OFF*\nUnstitched Elegance, Endless Possibilities",
             },
           ].map((pick) => (
-            <div key={pick.title} style={{ position: "relative", overflow: "hidden" }}>
+            <div key={pick.title} style={{ position: "relative", overflow: "hidden", aspectRatio: "3/2" }}>
               <img
                 src={pick.img}
                 alt={pick.title}
-                style={{ width: "100%", display: "block", objectFit: "cover" }}
+                style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", position: "absolute", inset: 0 }}
                 loading="lazy"
               />
               <div
@@ -617,28 +617,30 @@ function EditorsPicks() {
                   alignItems: "center",
                   justifyContent: "center",
                   textAlign: "center",
-                  padding: 24,
-                  gap: 12,
+                  padding: "24px 32px",
+                  gap: 10,
+                  background: "rgba(255,255,255,0.08)",
                 }}
               >
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#111", fontWeight: 600, lineHeight: 1.3 }}>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, color: "#fff", fontWeight: 700, lineHeight: 1.3, textShadow: "0 1px 6px rgba(0,0,0,0.45)" }}>
                   {pick.title}
                 </h3>
                 {pick.sub.split("\n").map((line, i) => (
-                  <p key={i} style={{ fontSize: 13, color: "#333", lineHeight: 1.5 }}>{line}</p>
+                  <p key={i} style={{ fontSize: 13, color: "rgba(255,255,255,0.92)", lineHeight: 1.5, textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{line}</p>
                 ))}
                 <a
                   href="#"
                   style={{
-                    marginTop: 8,
+                    marginTop: 10,
                     display: "inline-block",
-                    background: "#111",
-                    color: "#fff",
-                    fontWeight: 600,
-                    letterSpacing: "0.1em",
+                    background: "#fff",
+                    color: "#111",
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
                     fontSize: 12,
-                    padding: "9px 28px",
+                    padding: "10px 32px",
                     textDecoration: "none",
+                    border: "2px solid #fff",
                   }}
                 >
                   SHOP NOW
