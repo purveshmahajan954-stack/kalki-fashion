@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { ShoppingBag, Heart, User, Search, Menu, X, MapPin, Video, Shirt, Truck, RotateCcw, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
-import { useGetCart, useListCategories, useSearchProducts } from "@workspace/api-client-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const announcements = [
@@ -99,14 +98,9 @@ export default function Header() {
     return () => clearInterval(id);
   }, []);
 
-  const { data: cart } = useGetCart();
-  const { data: categories } = useListCategories();
-  const { data: searchResults } = useSearchProducts(
-    { q: searchQuery, limit: 5 },
-    { query: { enabled: searchQuery.length > 1 } }
-  );
-
-  const cartCount = cart?.items?.reduce((s, i) => s + i.quantity, 0) ?? 0;
+  const cartCount = 0;
+  const categories: { slug: string; name: string }[] = [];
+  const searchResults: { slug: string; name: string }[] = [];
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -435,7 +429,7 @@ export default function Header() {
               {user ? (
                 <>
                   <Link href="/account" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">My Account</Link>
-                  {user.role === "admin" && <Link href="/admin" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">Admin</Link>}
+                  {(user as any)?.role === "admin" && <Link href="/admin" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">Admin</Link>}
                   <Link href="/account" onClick={() => setMobileOpen(false)} className="text-sm text-gray-700 py-1">Wishlist</Link>
                   <button onClick={() => { logout(); setMobileOpen(false); }} className="text-left text-sm text-gray-700 py-1">Sign Out</button>
                 </>
