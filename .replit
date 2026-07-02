@@ -18,23 +18,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Fashion Store"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
 args = "API Server"
-
-[[workflows.workflow]]
-name = "Fashion Store"
-author = "agent"
-
-[workflows.workflow.metadata]
-outputType = "webview"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "PORT=25935 BASE_PATH=/ pnpm --filter @workspace/fashion-store run dev"
-waitForPort = 25935
 
 [[workflows.workflow]]
 name = "API Server"
