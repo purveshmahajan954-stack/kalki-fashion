@@ -576,48 +576,6 @@ const NEW_ARRIVALS_SALE = [
   { img: "https://ik.imagekit.io/4sjmoqtje/kalki-global/tr:w-350,c-at_max/cdn/shop/files/purple-silk-embroidered-kurta-and-skirt-set-sg359436-1_d6afe8b8-48e4-4e7c-8e39-3e70a11098f8.jpg", name: "Purple Silk Embroidered Kurta And Skirt Set", price: "$209", original: "$279" },
 ];
 
-function PersonalStylistBanner() {
-  return (
-    <section className="w-full relative overflow-hidden" style={{ minHeight: 280 }}>
-      <img
-        src="https://global-kalkifashion.myshopify.com/cdn/shop/files/video_call_c5562c8e-7c27-4e4f-bdce-8b4c6df3e6e9.jpg?v=1755614356"
-        alt="Shop The Sale With A Personal Stylist Via 24x7 Video Call"
-        className="w-full h-full object-cover absolute inset-0"
-        style={{ minHeight: 280 }}
-        loading="lazy"
-      />
-      <div
-        className="relative z-10 flex flex-col items-center justify-center text-center py-16 px-6"
-        style={{ minHeight: 280 }}
-      >
-        <h2
-          style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 8, textShadow: "0 1px 4px rgba(0,0,0,0.35)" }}
-        >
-          Shop The Sale With A Personal Stylist<br />Via 24x7 Video Call
-        </h2>
-        <p style={{ fontSize: 13, color: "rgba(255,255,255,0.9)", marginBottom: 20, textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}>
-          Our Stylists On Call Can Speak: English, Hindi, Gujarati &amp; Marathi
-        </p>
-        <a
-          href="#"
-          style={{
-            display: "inline-block",
-            background: "#fff",
-            color: "#111",
-            fontWeight: 600,
-            letterSpacing: "0.12em",
-            fontSize: 13,
-            padding: "10px 36px",
-            border: "1px solid #fff",
-            textDecoration: "none",
-          }}
-        >
-          START CALL NOW
-        </a>
-      </div>
-    </section>
-  );
-}
 
 function NewArrivalsOnSale() {
   const [offset, setOffset] = useState(0);
@@ -1222,9 +1180,6 @@ export default function Home() {
 
       {/* Top Collection slider */}
       <TopCollectionSlider />
-
-      {/* Personal Stylist Banner */}
-      <PersonalStylistBanner />
 
       {/* New Arrivals On Sale */}
       <NewArrivalsOnSale />
