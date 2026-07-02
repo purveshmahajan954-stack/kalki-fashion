@@ -1,0 +1,61 @@
+Build a full-stack e-commerce fashion website clone, inspired by global.kalkifashion.com 
+(an Indian ethnic wear / designer fashion store). Do NOT copy any copyrighted text, logos, 
+brand name, or images from the original site — use placeholder/royalty-free content instead.
+
+TECH STACK (important — must be Vercel-deployable):
+- Next.js 14 (App Router) + TypeScript
+- Tailwind CSS for styling
+- Prisma ORM + PostgreSQL (use Neon or Supabase free tier as DB)
+- NextAuth.js for login/signup (email + Google login)
+- Stripe (or Razorpay for India) for checkout/payments
+- Cloudinary or Vercel Blob for product image storage
+- Zustand or Context API for cart state management
+
+PAGES / FEATURES NEEDED:
+1. Home page — hero banner slider, featured collections, new arrivals grid, 
+   testimonials, newsletter signup
+2. Category pages — e.g. Sarees, Lehengas, Kurtas, Gowns, Suits — with filters 
+   (price, size, color, fabric) and sorting (price, newest, popularity)
+3. Product detail page — image gallery with zoom, size chart, color variants, 
+   add to cart, add to wishlist, related products, reviews section
+4. Cart page — quantity update, remove item, price summary, coupon code field
+5. Checkout flow — shipping address form, payment integration, order summary
+6. User account — login/signup, order history, wishlist, saved addresses
+7. Search bar with live product suggestions
+8. Admin dashboard (basic) — add/edit/delete products, view orders
+9. Responsive design — must work perfectly on mobile, tablet, desktop
+10. SEO basics — meta tags, sitemap.xml, robots.txt
+
+DESIGN GUIDELINES:
+- Elegant, premium fashion-store look (similar layout style to Kalki Fashion: 
+  big product images, minimal clean white background, gold/maroon accent colors)
+- Smooth hover animations on product cards
+- Fast image loading using next/image
+
+FOLDER STRUCTURE:
+Use a clean Next.js App Router structure:
+/app
+  /page.tsx (home)
+  /products/[category]/page.tsx
+  /product/[slug]/page.tsx
+  /cart/page.tsx
+  /checkout/page.tsx
+  /account/page.tsx
+  /admin/page.tsx
+/components
+/lib
+/prisma/schema.prisma
+
+DATABASE SCHEMA (Prisma):
+- User (id, name, email, password, role, addresses, orders)
+- Product (id, name, slug, description, price, discountPrice, images[], 
+  category, sizes[], colors[], stock, createdAt)
+- Category (id, name, slug)
+- Order (id, userId, items, totalAmount, status, paymentId, createdAt)
+- Review (id, productId, userId, rating, comment)
+
+DEPLOYMENT REQUIREMENTS:
+- Code must run with `npm run build` and `npm start` without errors
+- Use environment variables (.env) for DB_URL, NEXTAUTH_SECRET, STRIPE_KEY, 
+  CLOUDINARY keys etc. — add a .env.example file
+- Add a vercel.json only if needed (Next.js
