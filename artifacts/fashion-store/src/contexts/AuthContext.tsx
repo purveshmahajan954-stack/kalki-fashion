@@ -1,5 +1,10 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { useGetCurrentUser, User } from "@workspace/api-client-react";
+
+interface User {
+  id: number;
+  email: string;
+  name?: string;
+}
 
 interface AuthContextType {
   user: User | null;
@@ -11,28 +16,37 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem("auth_token"));
-  
-  const { data: user, isLoading, refetch } = useGetCurrentUser({
-    query: {
-      enabled: !!token,
-      queryKey: ["currentUser", token]
-    }
+  const [token, setToken] = useState<string | null>(() => {
+    try { return localStorage.getItem("auth_token"); } catch { return null; }
   });
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!token) { setUser(null); return; }
+    setIsLoading(true);
+    fetch("/api/auth/me", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => setUser(data || null))
+      .catch(() => setUser(null))
+      .finally(() => setIsLoading(false));
+  }, [token]);
 
   const login = (newToken: string) => {
-    localStorage.setItem("auth_token", newToken);
+    try { localStorage.setItem("auth_token", newToken); } catch {}
     setToken(newToken);
-    refetch();
   };
 
   const logout = () => {
-    localStorage.removeItem("auth_token");
+    try { localStorage.removeItem("auth_token"); } catch {}
     setToken(null);
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user: user || null, isLoading: isLoading && !!token, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading: isLoading && !!token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
